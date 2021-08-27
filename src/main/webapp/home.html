@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Online Auctions - Home</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/5f67b861df.js" crossorigin="anonymous"></script>
+        <script src="js/utils.js" charset="UTF-8" defer></script>
+    </head>
+    <body>
+        <!-- NAVBAR SECTION -->
+        <nav id="section-navbar" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Online Auctions 2.0</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" id="navbar-buy-link" href="#">Buy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="navbar-sell-link" href="#">Sell</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" id="navbar-name-text"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-danger" id="navbar-logout-link"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <!-- SEARCH SECTION -->
+            <section id="section-search">
+                <div class="row px-5 py-4">
+                    <form class="d-flex col-3 px-0" id="search-form">
+                        <input name="search" class="form-control me-2" type="search" placeholder="Search for open auctions..." aria-label="Search" id="search-input">
+                        <button class="btn btn-primary" id="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- FOUND SECTION -->
+            <section id="section-found">
+                <div class="row px-5">
+                    <p><b>No auctions found...</b><br>Maybe try another keyword</p>
+                </div>
+
+                <!-- TODO: repeat this part for each found auction -->
+                <section id="section-found-cards">
+                    <div class="row px-5 py-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Title -->
+                                <div class="row p-0 justify-content-between">
+                                    <div class="col-11">
+                                        <h4 class="card-title fw-bold" id="$card-title-$index"></h4>
+                                    </div>
+                                    <div class="col-1 p-0">
+                                        <span class="fw-lighter float-end" id="$card-id-$index"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <p class="card-text" id="$card-description-$index"></p>
+
+                                <!-- Price -->
+                                <p class="card-text"><b id="$card-price-label-$index"></b><span id="$card-price-$index"></span> <span>&euro;</span></p>
+
+                                <!-- Status -->
+                                <p class="card-text">
+                                    <b>End Date: </b><span id="$card-date-$index"></span>
+                                </p>
+
+                                <!-- Link -->
+                                <a class="btn btn-primary" id="$card-button-$index"></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </body>
+</html>
