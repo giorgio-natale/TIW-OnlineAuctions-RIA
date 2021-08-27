@@ -25,9 +25,9 @@ public class AuctionDAO {
     public List<Auction> searchOpenAuctions(String searchTerms) throws SQLException {
         String query =
                 "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
-                        "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
-                        "WHERE closed = false AND NOW() < end_date AND (name LIKE CONCAT('%', ?, '%') OR description LIKE CONCAT('%', ?, '%')) " +
-                        "ORDER BY end_date ASC;";   // TODO: change to DESC just in case
+                "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
+                "WHERE closed = false AND NOW() < end_date AND (name LIKE CONCAT('%', ?, '%') OR description LIKE CONCAT('%', ?, '%')) " +
+                "ORDER BY end_date ASC;";   // TODO: change to DESC just in case
 
         List<Auction> auctions = new ArrayList<>();
 
@@ -62,8 +62,8 @@ public class AuctionDAO {
     public List<Auction> getWonAuctions(int userID) throws SQLException {
         String query =
                 "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
-                        "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
-                        "WHERE closed = true AND auction_winner.user_id = ?;";
+                "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
+                "WHERE closed = true AND auction_winner.user_id = ?;";
 
         List<Auction> auctions = new ArrayList<>();
 
@@ -97,9 +97,9 @@ public class AuctionDAO {
     public List<Auction> getAuctionsByUser(int userID, boolean closedOrExpired) throws SQLException {
         String query =
                 "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
-                        "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
-                        "WHERE (? XOR (NOW() < end_date)) AND auction.user_id = ? " +
-                        "ORDER BY end_date ASC;";
+                "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
+                "WHERE (? XOR (NOW() < end_date)) AND auction.user_id = ? " +
+                "ORDER BY end_date ASC;";
 
         List<Auction> auctions = new ArrayList<>();
 
@@ -134,8 +134,8 @@ public class AuctionDAO {
     public Auction getAuctionDetails(int auctionID) throws SQLException {
         String query =
                 "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
-                        "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
-                        "WHERE auction.auction_id = ?;";
+                "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
+                "WHERE auction.auction_id = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, auctionID);
@@ -169,8 +169,8 @@ public class AuctionDAO {
     public String getImageName(int auctionID) throws SQLException{
         String query =
                 "SELECT image " +
-                        "FROM auction " +
-                        "WHERE auction_id = ?;";
+                "FROM auction " +
+                "WHERE auction_id = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, auctionID);
@@ -190,8 +190,8 @@ public class AuctionDAO {
     public void closeAuction (int auctionID) throws SQLException {
         String query =
                 "UPDATE auction " +
-                        "SET closed = true " +
-                        "WHERE auction_id = ?;";
+                "SET closed = true " +
+                "WHERE auction_id = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, auctionID);
@@ -203,7 +203,8 @@ public class AuctionDAO {
 
     public void addNewAuction(int userId, String name, String description, int startingPrice, int minPriceGap, Instant endDate, String uploadPath, Part filePart) throws SQLException, IOException {
 
-        String query = "INSERT INTO auction (user_id, name, description, starting_price, min_price_gap, end_date, closed) " +
+        String query =
+                "INSERT INTO auction (user_id, name, description, starting_price, min_price_gap, end_date, closed) " +
                 "VALUES (?, ?, ?, ?, ?, ?, false)";
 
         connection.setAutoCommit(false);
