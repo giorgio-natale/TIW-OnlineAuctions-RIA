@@ -1,16 +1,17 @@
 function makeCall(method, url, formElement, callback, reset = true) {
-    const req = new XMLHttpRequest(); // visible by closure
+    const request = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
-        callback(req)
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE)
+            callback(request)
     };
 
-    req.open(method, url);
+    request.open(method, url);
 
     if (formElement == null)
-        req.send();
+        request.send();
     else
-        req.send(new FormData(formElement));
+        request.send(new FormData(formElement));
 
     if (formElement !== null && reset === true)
         formElement.reset();

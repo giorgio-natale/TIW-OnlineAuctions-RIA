@@ -6,11 +6,10 @@
         if (form.checkValidity()) {
             makeCall("POST", 'CheckLogin', form,
 
-                function (response) {
-                    if (response.readyState === XMLHttpRequest.DONE) {
-                        const message = response.responseText;
+                function (request) {
+                        const message = request.responseText;
 
-                        switch (response.status) {
+                        switch (request.status) {
                             case HttpResponseStatus.OK:
                                 sessionStorage.setItem('username', message);
                                 window.location.href = "home.html";
@@ -25,7 +24,6 @@
                                 document.getElementById("errorMsg").textContent = message;
                                 document.getElementById("errorMsg").style.visibility = "visible";
                                 break;
-                        }
                     }
                 }
             );
