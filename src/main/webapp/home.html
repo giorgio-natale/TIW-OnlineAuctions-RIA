@@ -6,7 +6,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/5f67b861df.js" crossorigin="anonymous"></script>
         <script src="js/utils.js" charset="UTF-8" defer></script>
-        <script src="js/home.js" charset="UTF-8" defer></script>
+        <script type="module" src="js/home.js" charset="UTF-8" defer></script>
     </head>
     <body>
         <!-- NAVBAR SECTION -->
@@ -41,8 +41,8 @@
             <!-- SEARCH SECTION -->
             <section id="section-search">
                 <div class="row px-5 py-4">
-                    <form class="d-flex col-3 px-0" id="search-form">
-                        <input name="search" class="form-control me-2" type="search" placeholder="Search for open auctions..." aria-label="Search" id="search-input">
+                    <form class="d-flex col-3 px-0" id="search-form" action="#">
+                        <input name="search" class="form-control me-2" type="search" placeholder="Search for open auctions..." aria-label="Search" id="search-input" required>
                         <button class="btn btn-primary" id="search-button"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
@@ -50,7 +50,7 @@
 
             <!-- FOUND SECTION -->
             <section id="section-found">
-                <div class="row px-5" id="found-noResults" style="display: none">
+                <div class="row px-5" id="found-noResults">
                     <p><b>No auctions found...</b><br>Maybe try another keyword</p>
                 </div>
 
@@ -59,15 +59,8 @@
                 </section>
             </section>
 
-            <!-- WON SECTION -->
-            <section id="section-won">
-                <div class="row px-5 py-1">
-                    <h2 class="px-0">Your Won Auctions</h2>
-                </div>
-
-                <!-- TODO: repeat this part for each won auction -->
-                <section id="list-won">
-                </section>
+            <!-- DETAILS SECTION -->
+            <section id="section-details">
             </section>
 
         </div>
