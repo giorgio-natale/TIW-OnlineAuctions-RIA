@@ -1,7 +1,7 @@
 import {Orchestrator} from "./components/Orchestrator.js";
 
 (function(){
-    window.addEventListener("load", (e) => {
+    window.addEventListener("load", () => {
         let orchestrator = new Orchestrator();
         orchestrator.init();
     });

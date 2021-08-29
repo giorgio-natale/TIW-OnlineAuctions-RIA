@@ -7,11 +7,12 @@
             makeCall("POST", 'CheckLogin', form,
 
                 function (request) {
+                        // TODO: will be parsed from JSON to object
                         const message = request.responseText;
 
                         switch (request.status) {
                             case HttpResponseStatus.OK:
-                                sessionStorage.setItem('username', message);
+                                sessionStorage.setItem('user', message);
                                 window.location.href = "home.html";
                                 document.getElementById("errorMsg").style.visibility = "hidden";
                                 break;

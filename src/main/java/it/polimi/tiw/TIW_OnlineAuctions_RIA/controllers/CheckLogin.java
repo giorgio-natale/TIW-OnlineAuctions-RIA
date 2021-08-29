@@ -61,6 +61,8 @@ public class CheckLogin extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+
+            // TODO: convert to JSON first!
             response.getWriter().println(user);
         }
     }

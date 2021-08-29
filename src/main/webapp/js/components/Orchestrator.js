@@ -21,7 +21,6 @@ export function Orchestrator(){
     }
 
     this.showSearchResults = function(searchString){
-        console.log(searchString);
         self.auctionDetails.reset();
         self.foundAuctionsList.show(searchString);
         self.searchBar.show();
