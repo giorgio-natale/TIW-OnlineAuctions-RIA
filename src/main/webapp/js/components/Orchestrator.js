@@ -1,6 +1,10 @@
 import {FoundAuctionsList} from "./FoundAuctionsList.js";
 import {AuctionDetails} from "./AuctionDetails.js";
 import {SearchBar} from "./SearchBar.js"
+import {WonAuctionsList} from "./WonAuctionsList.js";
+import {OpenAuctionsList} from "./OpenAuctionsList.js";
+import {ClosedAuctionsList} from "./ClosedAuctionsList.js";
+import {WinnerDetails} from "./WinnerDetails.js";
 
 
 //It creates all the components. The init function shows (for now) only the search form. This "class" contains a function
@@ -11,6 +15,10 @@ export function Orchestrator(){
     this.foundAuctionsList = new FoundAuctionsList(document.getElementById("section-found"), this);
     this.auctionDetails = new AuctionDetails(document.getElementById("section-auctionDetails"), this);
     this.searchBar = new SearchBar(document.getElementById("section-search"), this);
+    this.wonAuctionsList = new WonAuctionsList(document.getElementById("section-won"), this);
+    this.openAuctionsList = new OpenAuctionsList(document.getElementById("section-open"), this);
+    this.closedAuctionsList = new ClosedAuctionsList(document.getElementById("section-closed"), this);
+    this.winnerDetails = new WinnerDetails(document.getElementById("section-auctionWinner"), this);
 
     let self = this;
 
@@ -18,18 +26,30 @@ export function Orchestrator(){
         self.auctionDetails.reset();
         self.foundAuctionsList.reset();
         self.searchBar.show();
+        self.wonAuctionsList.show();
+        self.openAuctionsList.show();
+        self.closedAuctionsList.show();
+        self.winnerDetails.show();
     }
 
     this.showSearchResults = function(searchString){
         self.auctionDetails.reset();
         self.foundAuctionsList.show(searchString);
         self.searchBar.show();
+        self.wonAuctionsList.show();
+        self.openAuctionsList.reset();
+        self.closedAuctionsList.reset();
+        self.winnerDetails.reset();
     }
 
     this.showDetails = function(_details){
         self.auctionDetails.show(_details);
         self.foundAuctionsList.reset();
         self.searchBar.reset();
+        self.wonAuctionsList.reset();
+        self.openAuctionsList.reset();
+        self.closedAuctionsList.reset();
+        self.winnerDetails.reset();
     }
 
     this.showOffers = function(_id){

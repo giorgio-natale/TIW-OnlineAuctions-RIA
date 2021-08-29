@@ -51,8 +51,7 @@ export function FoundAuctionsList(_container, _orchestrator){
     this.show = function(searchString){
         //TODO: use ajax instead
         setTimeout(() => {
-            let auctionsToShow = mockAuctions;
-            self.update(auctionsToShow);
+            self.update(mockAuctions);
         }, 10);
     }
 
@@ -61,7 +60,14 @@ export function FoundAuctionsList(_container, _orchestrator){
         self.container.style.display = "";
 
         //if there is no auction found, a message is shown
-        self.emptyMessageContainer.style.display = (_auctionsToShow.length > 0) ? "none" : "";
+        if(_auctionsToShow.length > 0) {
+            self.emptyMessageContainer.style.display = "none";
+            self.listContainer.style.display = "";
+        }
+        else {
+            self.emptyMessageContainer.style.display = "";
+            self.listContainer.style.display = "none";
+        }
 
         //for each auction, a card is created. They are stored in a list so that on update it is possible to clean resources
         _auctionsToShow.forEach((auctionBean) => {
