@@ -13,7 +13,7 @@ export function AuctionDetails(_container, _orchestrator){
     }
 
     this.update = function(_auctionDetails){
-        self.container.style.visibility = "visible";
+        self.container.style.display = "";
         self.container.innerHTML  = "";
         let p = document.createElement("p");
         p.textContent = "Details: " + _auctionDetails;
@@ -21,7 +21,7 @@ export function AuctionDetails(_container, _orchestrator){
     }
 
     this.reset = function(){
-        self.container.style.visibility = "hidden";
+        self.container.style.display = "none";
         self.container.innerHTML = "";
     }
 }

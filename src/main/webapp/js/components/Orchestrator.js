@@ -9,7 +9,7 @@ import {SearchBar} from "./SearchBar.js"
 //This component is passed to all other subcomponents so that they can invoke the correct interaction function when needed
 export function Orchestrator(){
     this.foundAuctionsList = new FoundAuctionsList(document.getElementById("section-found"), this);
-    this.auctionDetails = new AuctionDetails(document.getElementById("section-details"));
+    this.auctionDetails = new AuctionDetails(document.getElementById("section-auctionDetails"), this);
     this.searchBar = new SearchBar(document.getElementById("section-search"), this);
 
     let self = this;
