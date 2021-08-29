@@ -54,13 +54,202 @@
                     <p><b>No auctions found...</b><br>Maybe try another keyword</p>
                 </div>
 
-                <!-- TODO: repeat this part for each found auction -->
                 <section id="list-found">
                 </section>
             </section>
 
-            <!-- DETAILS SECTION -->
-            <section id="section-details">
+            <!-- WON SECTION -->
+            <section id="section-won">
+                <div class="row px-5 py-1">
+                    <h2 class="px-0">Your Won Auctions</h2>
+                </div>
+
+                <section id="list-won">
+                </section>
+            </section>
+
+            <!-- NEW AUCTION SECTION -->
+            <section id="section-newAuction">
+                <div class="row py-4 px-5">
+                    <form class="pb-3 px-0" id="newAuction-form">
+                        <div class="row p-0">
+                            <div class="col-12 pb-2">
+                                <h2>Create new Auction</h2>
+                            </div>
+
+                            <div class="col-6 py-2">
+                                <label for="newAuction-auctionName" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="newAuction-auctionName" name="newAuction-auctionName" required>
+                            </div>
+
+                            <div class="col-6 py-2">
+                                <label for="newAuction-auctionImage" class="form-label">Image (optional):</label>
+                                <input type="file" class="form-control" id="newAuction-auctionImage" name="newAuction-auctionImage" />
+                            </div>
+
+                            <div class="col-12 py-2">
+                                <label for="newAuction-auctionDescription" class="form-label">Description:</label>
+                                <textarea rows="3" class="form-control" id="newAuction-auctionDescription" name="newAuction-auctionDescription" required style="resize: none;"></textarea>
+                            </div>
+
+                            <div class="col-3 py-2">
+                                <label for="newAuction-auctionStartingPrice" class="form-label">Starting price:</label>
+                                <input type="number" class="form-control" id="newAuction-auctionStartingPrice" name="newAuction-auctionStartingPrice" required step="0.5" min="0" max="999999.99" />
+                            </div>
+
+                            <div class="col-3 py-2">
+                                <label for="newAuction-auctionPriceGap" class="form-label">Minimum price gap:</label>
+                                <input type="number" class="form-control" id="newAuction-auctionPriceGap" name="newAuction-auctionPriceGap" required step="0.5" min="0" max="999999.99" />
+                            </div>
+
+                            <div class="col-4 py-2">
+                                <label for="newAuction-auctionEndDate" class="form-label">End date:</label>
+                                <input type="date" class="form-control" id="newAuction-auctionEndDate" name="newAuction-auctionEndDate" required />
+                            </div>
+
+                            <div class="col-1 py-2">
+                                <label for="newAuction-auctionEndHour" class="form-label">Hour:</label>
+                                <input type="number" class="form-control" id="newAuction-auctionEndHour" name="newAuction-auctionEndHour" required min="0" max="23" step="1" />
+                            </div>
+
+                            <div class="col-1 py-2">
+                                <label for="newAuction-auctionEndMinute" class="form-label">Min:</label>
+                                <input type="number" class="form-control" id="newAuction-auctionEndMinute" name="newAuction-auctionEndMinute" required min="0" max="59" step="1" />
+                            </div>
+
+                            <div class="col-2 py-2">
+                                <button class="w-100 btn btn-primary btn-lg" type="submit">Create auction</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- OPEN SECTION -->
+            <section id="section-open">
+                <div class="row px-5 py-1">
+                    <h2 class="px-0">Your Open Auctions</h2>
+                </div>
+
+                <section id="list-open">
+                </section>
+            </section>
+
+            <!-- CLOSED SECTION -->
+            <section id="section-closed">
+                <div class="row px-5 pt-3 pb-1">
+                    <h2 class="px-0">Your Closed and Expired Auctions</h2>
+                </div>
+
+                <section id="list-closed">
+                </section>
+            </section>
+
+            <!-- AUCTION DETAILS SECTION -->
+            <section id="section-auctionDetails">
+                <div class="row px-5 py-3">
+                    <div class="card mb-3 px-0">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img id="auctionDetails-image" class="img-fluid rounded-start w-75" alt="Image">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h2 class="card-title d-inline-block">
+                                        <span class="fw-bold" id="auctionDetails-name"></span>
+                                    </h2>
+                                    <h4 class="card-title d-inline-block">
+                                        <span class="badge bg-primary text-light fw-normal" id="auctionDetails-ownerName"></span>
+                                    </h4>
+                                    <p class="card-text" id="auctionDetails-description"></p>
+
+                                    <p class="card-text">
+                                        <b id="auctionDetails-priceLabel"></b>
+                                        <span id="auctionDetails-price"></span>
+                                    </p>
+                                    <p class="card-text"><b>Minimum rebid: </b><span id="auctionDetails-minimumRebid"></span> &euro;</p>
+                                    <p class="card-text"><b>End date: </b>
+                                        <span id="auctionDetails-endDate"></span>
+                                        <span id="auctionDetails-timeLeft" class="fw-bold"></span>
+                                    </p>
+
+                                    <div>
+                                        <form class="d-flex col-3 px-0" id="auctionDetails-closeForm">
+                                            <button class="btn btn-primary" type="submit">Close Auction</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUCTION WINNER SECTION -->
+            <section id="section-auctionWinner">
+                <div class="row px-5 py-1">
+                    <div class="card p-0">
+                        <h3 class="card-header">Winner Details</h3>
+                        <div class="card-body" id="auctionWinner-regularInfosShown">
+                            <p class="card-text">
+                                <span class="fw-bold">Name: </span>
+                                <span id="auctionWinner-name"></span>
+                            </p>
+                            <p class="card-text">
+                                <span class="fw-bold">Address: </span>
+                                <span id="auctionWinner-address"></span>
+                            </p>
+                            <p class="card-text" id="auctionWinner-otherInfosShown">
+                                <span class="fw-bold">Other address infos: </span>
+                                <span id="auctionWinner-other"></span>
+                            </p>
+                        </div>
+
+                        <div class="card-body" id="auctionWinner-noWinnerShown">
+                            <p class="card-text">
+                                <span class="fw-bold">No bids were placed</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADD BID SECTION -->
+            <section id="section-addBid">
+                <div class="row px-5 py-3">
+                    <form class="d-flex col-3 px-0">
+                        <input name="addBid-amount" id="addBid-amount" class="form-control me-2" type="text" placeholder="Bid value" aria-label="Bid value" required min="0" max="999999.99" step="0.5" >
+                        <button class="btn btn-primary" type="submit"><i class="d-inline-block fas fa-gavel"></i></button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- BIDS SECTION -->
+            <section id="section-bids">
+                <div class="row px-5 py-1">
+                    <div class="col-3 px-0">
+                        <div class="card w-100" id="bids-shown">
+                            <ul class="list-group list-group-flush" id="list-bids">
+
+                                <!-- TODO: replicate in js -->
+                                <li class="list-group-item">
+                                    <div>
+                                        <h5 class="card-title d-inline-block">
+                                            <span class="badge bg-primary text-light fw-normal" id="bid-owner"></span>
+                                        </h5>
+                                        <div>
+                                            <span class="fw-bold"><span id="bid-price"></span><span> &euro;</span></span>
+                                            <span id="bid-date"></span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="fw-bold" id="bids-empty">No placed bids so far</div>
+                    </div>
+                </div>
             </section>
 
         </div>
