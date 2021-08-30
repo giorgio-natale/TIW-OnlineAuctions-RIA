@@ -2,7 +2,7 @@ import {SearchBar} from "./SearchBar.js";
 import {FoundAuctionsList} from "./FoundAuctionsList.js";
 import {WonAuctionsList} from "./WonAuctionsList.js";
 
-// NewAuctionForm
+import {NewAuctionForm} from "./NewAuctionForm.js";
 import {OpenAuctionsList} from "./OpenAuctionsList.js";
 import {ClosedAuctionsList} from "./ClosedAuctionsList.js";
 
@@ -23,7 +23,7 @@ export function Orchestrator() {
     this.foundAuctionsList = new FoundAuctionsList(document.getElementById("section-found"), this);
     this.wonAuctionsList = new WonAuctionsList(document.getElementById("section-won"), this);
 
-    // this.newAuctionForm = new NewAuctionForm(document.getElementById("section-newAuction"), this);
+    this.newAuctionForm = new NewAuctionForm(document.getElementById("section-newAuction"), this);
     this.openAuctionsList = new OpenAuctionsList(document.getElementById("section-open"), this);
     this.closedAuctionsList = new ClosedAuctionsList(document.getElementById("section-closed"), this);
 
@@ -41,7 +41,7 @@ export function Orchestrator() {
         self.foundAuctionsList.reset();
         self.wonAuctionsList.show();
 
-        // self.newAuctionForm.reset();
+        self.newAuctionForm.show();     //TODO: change to reset when navBar is ready
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
@@ -58,7 +58,7 @@ export function Orchestrator() {
         self.foundAuctionsList.show(searchString);
         self.wonAuctionsList.show();
 
-        // self.newAuctionForm.reset();
+        self.newAuctionForm.reset();
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
@@ -75,7 +75,7 @@ export function Orchestrator() {
         self.foundAuctionsList.reset();
         self.wonAuctionsList.reset();
 
-        // self.newAuctionForm.show();
+        self.newAuctionForm.show();
         self.openAuctionsList.show();
         self.closedAuctionsList.show();
 
@@ -92,7 +92,7 @@ export function Orchestrator() {
         self.foundAuctionsList.reset();
         self.wonAuctionsList.reset();
 
-        // self.newAuctionForm.reset();
+        self.newAuctionForm.reset();
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
