@@ -10,8 +10,8 @@ export function BidsList(_container, _orchestrator){
     self.emptyContainer = document.getElementById("bids-empty");
     self.bidCards = [];
 
-    self.show = function(_auctionId){
-        makeCall("GET", "GetBids?auctionId=" + _auctionId, null,
+    self.show = function(auctionId){
+        makeCall("GET", "GetBids?auctionID=" + auctionId, null,
             function (request) {
                 if (request.status === HttpResponseStatus.OK) {
                     self.update(JSON.parse(request.responseText));

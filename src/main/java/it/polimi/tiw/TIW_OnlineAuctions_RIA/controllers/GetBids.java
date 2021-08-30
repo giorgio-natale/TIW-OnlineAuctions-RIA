@@ -31,7 +31,7 @@ public class GetBids extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int auctionId;
         try {
-            auctionId = Integer.parseInt(request.getParameter("auctionId"));
+            auctionId = Integer.parseInt(request.getParameter("auctionID"));
         } catch (NumberFormatException | NullPointerException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println("Invalid request");
