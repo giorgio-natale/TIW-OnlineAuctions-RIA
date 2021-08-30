@@ -1,6 +1,5 @@
 import {AuctionCard} from "./AuctionCard.js";
 
-//This component takes care of the auctions found after the search interaction.
 export function FoundAuctionsList(_container, _orchestrator){
     let self = this;
 

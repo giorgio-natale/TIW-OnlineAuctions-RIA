@@ -1,19 +1,5 @@
 import {AuctionCard} from "./AuctionCard.js";
 
-const auction1 = {
-    title: "Titolo di prova 1",
-    id: 1,
-    userId: 1,
-    description: "Asta di prova",
-    price: 34.5,
-    endDate: "27/05/2022",
-    startingPrice: 50,
-    winningPrice: 100,
-    closed: false
-};
-
-const mockAuctions = [auction1];
-
 export function ClosedAuctionsList(_container, _orchestrator) {
     let self = this;
 
