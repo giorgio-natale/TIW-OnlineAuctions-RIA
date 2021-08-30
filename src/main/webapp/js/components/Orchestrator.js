@@ -1,3 +1,5 @@
+import {NavBar} from "./NavBar.js";
+
 import {SearchBar} from "./SearchBar.js";
 import {FoundAuctionsList} from "./FoundAuctionsList.js";
 import {WonAuctionsList} from "./WonAuctionsList.js";
@@ -17,7 +19,7 @@ import {WinnerDetails} from "./WinnerDetails.js";
 //Each function is responsible to show and hide components in order to compose the correct layout.
 //This component is passed to all other subcomponents so that they can invoke the correct interaction function when needed
 export function Orchestrator() {
-    // this.navBar = new NavBar(document.getElementById("section-navbar"), this);
+    this.navBar = new NavBar(document.getElementById("section-navbar"), this);
 
     this.searchBar = new SearchBar(document.getElementById("section-search"), this);
     this.foundAuctionsList = new FoundAuctionsList(document.getElementById("section-found"), this);
@@ -35,24 +37,11 @@ export function Orchestrator() {
     let self = this;
 
     this.init = function() {
-        // self.navBar.show();
-
-        self.searchBar.show();
-        self.foundAuctionsList.reset();
-        self.wonAuctionsList.show();
-
-        self.newAuctionForm.show();     //TODO: change to reset when navBar is ready
-        self.openAuctionsList.reset();
-        self.closedAuctionsList.reset();
-
-        self.auctionDetails.reset();
-        self.winnerDetails.reset();
-        // self.newBidForm.reset();
-        // self.bidsList.reset();
+        self.showBuyPage();
     }
 
     this.showSearchResults = function(searchString) {
-        // self.navBar.show();
+        self.navBar.show();
 
         self.searchBar.show();
         self.foundAuctionsList.show(searchString);
@@ -66,10 +55,31 @@ export function Orchestrator() {
         self.winnerDetails.reset();
         // self.newBidForm.reset();
         // self.bidsList.reset();
+
+        self.navBar.activateBuy();
+    }
+
+    this.showBuyPage = function() {
+        self.navBar.show();
+
+        self.searchBar.show();
+        self.foundAuctionsList.reset();
+        self.wonAuctionsList.show();
+
+        self.newAuctionForm.reset();
+        self.openAuctionsList.reset();
+        self.closedAuctionsList.reset();
+
+        self.auctionDetails.reset();
+        self.winnerDetails.reset();
+        // self.newBidForm.reset();
+        // self.bidsList.reset();
+
+        self.navBar.activateBuy();
     }
 
     this.showSellPage = function () {
-        // self.navBar.show();
+        self.navBar.show();
 
         self.searchBar.reset();
         self.foundAuctionsList.reset();
@@ -83,10 +93,12 @@ export function Orchestrator() {
         self.winnerDetails.reset();
         // self.newBidForm.reset();
         // self.bidsList.reset();
+
+        self.navBar.activateSell();
     }
 
     this.showDetailsAndBids = function(auctionID) {
-        // self.navBar.show();
+        self.navBar.show();
 
         self.searchBar.reset();
         self.foundAuctionsList.reset();
@@ -100,5 +112,7 @@ export function Orchestrator() {
         self.winnerDetails.show();
         // self.newBidForm.show();
         // self.bidsList.show();
+
+        self.navBar.deactivateAll();
     }
 }
