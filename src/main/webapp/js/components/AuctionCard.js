@@ -124,7 +124,7 @@ export function AuctionCard(_orchestrator) {
 
     //see the comment for the update function
     this.registerEvents = function(auction) {
-        self.buttonA.addEventListener("click", () => self.orchestrator.showDetailsAndBids(auction.id));
+        self.buttonA.addEventListener("click", () => self.orchestrator.showDetailsAndBids(auction.auction_id));
     }
 
     //remove all the element
