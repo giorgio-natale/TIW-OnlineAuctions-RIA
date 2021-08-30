@@ -109,7 +109,7 @@ export function Orchestrator() {
         self.closedAuctionsList.reset();
 
         self.auctionDetails.show(auctionID);
-        self.winnerDetails.show();
+        self.winnerDetails.reset();     // TODO: to be shown
         // self.newBidForm.show();
         // self.bidsList.show();
 
