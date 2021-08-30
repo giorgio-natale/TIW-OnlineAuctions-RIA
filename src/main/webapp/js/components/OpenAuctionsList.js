@@ -14,7 +14,7 @@ const auction1 = {
 
 const mockAuctions = [auction1];
 
-export function OpenAuctionsList(_container, _orchestrator){
+export function OpenAuctionsList(_container, _orchestrator) {
     let self = this;
 
     self.container = _container;
@@ -24,10 +24,17 @@ export function OpenAuctionsList(_container, _orchestrator){
     self.cards = [];
 
     this.show = function() {
-        //TODO: use ajax instead
-        setTimeout(() => {
-            self.update(mockAuctions);
-        }, 10);
+        makeCall("GET", "GetAuctionsList?type=open", null,
+            function (request) {
+                if (request.status === HttpResponseStatus.OK) {
+                    self.update(JSON.parse(request.responseText));
+                }
+                else {
+                    // TODO: error handling
+                    alert("Error " + request.status + ": " + request.responseText);
+                }
+            }
+        );
     }
 
     this.update = function(_auctionsToShow) {
