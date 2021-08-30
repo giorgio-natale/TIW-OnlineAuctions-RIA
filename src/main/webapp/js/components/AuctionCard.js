@@ -3,7 +3,7 @@ let mockUserId = 1;
 
 
 //This component creates a card (root element is cardContainerDiv)
-export function AuctionCard(_orchestrator){
+export function AuctionCard(_orchestrator) {
     let self = this;
     self.orchestrator = _orchestrator;
 
@@ -83,14 +83,14 @@ export function AuctionCard(_orchestrator){
         cardBodyDiv.appendChild(this.buttonA);
     }
 
-    this.show = function(auction){
+    this.show = function(auction) {
         self.reset();
         self.createTemplate();
         self.update(auction);
         self.registerEvents(auction);
     }
 
-    this.reset = function(){
+    this.reset = function() {
         while (self.cardContainerDiv.firstChild) {
             self.cardContainerDiv.firstChild.remove();
         }
@@ -100,13 +100,13 @@ export function AuctionCard(_orchestrator){
     //The card knows what kind of message to show (e.g. 'Starting price' vs 'Current price') and the correct
     //interaction to trigger (e.g. Show Offers vs Show details) by looking at the auction bean passed by parameter.
     //Same considerations hold for the registerEvents function
-    this.update = function(auction){
-        self.titleH4.textContent = auction.title;
-        self.idSpan.textContent = auction.id;
+    this.update = function(auction) {
+        self.titleH4.textContent = auction.name;
+        self.idSpan.textContent = "#" + auction.auction_id;
         self.descriptionP.textContent = auction.description;
-        self.priceB.textContent = (auction.winningPrice === 0) ? "Starting Price: " : "Current Price: ";
-        self.priceSpan.textContent = (auction.winningPrice === 0) ? auction.startingPrice : auction.winningPrice;
-        self.endDateSpan.textContent = auction.endDate;
+        self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
+        self.priceSpan.textContent = (auction.winning_price === 0) ? auction.starting_price : auction.winning_price;
+        self.endDateSpan.textContent = secondsToDate(auction.end_date);
 
         //TODO: add remaining time if open
 
@@ -123,24 +123,12 @@ export function AuctionCard(_orchestrator){
     }
 
     //see the comment for the update function
-    this.registerEvents = function(auction){
-
-        let handler;
-        if(auction.closed) //TODO: add the expired case
-            handler = self.orchestrator.showDetails;
-        else {
-            if(mockUserId === auction.userId) //TODO: if the userId is not defined (local session expired), load the login page
-                handler = self.orchestrator.showOffers;
-            else
-                handler = self.orchestrator.makeOffer;
-        }
-
-        self.buttonA.addEventListener("click", () => handler(auction.id));
+    this.registerEvents = function(auction) {
+        self.buttonA.addEventListener("click", () => self.orchestrator.showDetailsAndBids(auction.id));
     }
 
     //remove all the element
-    this.cleanup = function(){
+    this.cleanup = function() {
         self.cardContainerDiv.parentNode.removeChild(this.cardContainerDiv);
     }
-
 }
