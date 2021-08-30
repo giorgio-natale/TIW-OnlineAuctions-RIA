@@ -1,7 +1,3 @@
-//TODO: delete this (it will be retrieved from the session)
-let mockUserId = 1;
-
-
 //This component creates a card (root element is cardContainerDiv)
 export function AuctionCard(_orchestrator) {
     let self = this;
@@ -48,17 +44,20 @@ export function AuctionCard(_orchestrator) {
         //price number tag
         self.priceSpan = document.createElement("span");
 
-        let euroSpan = document.createElement("span");
-        euroSpan.innerHTML = "&euro;";
+        self.euroSpan = document.createElement("span");
+        self.euroSpan.innerHTML = "&euro;";
 
-        let statusP = document.createElement("p");
-        statusP.className += "card-text";
+        self.statusP = document.createElement("p");
+        self.statusP.className += "card-text";
 
-        let endDateB = document.createElement("b");
-        endDateB.innerHTML = "End Date: ";
+        self.endDateB = document.createElement("b");
+        self.endDateB.innerHTML = "End Date: ";
 
         //end date tag
         self.endDateSpan = document.createElement("span");
+
+        //time left tag
+        self.timeLeftSpan = document.createElement("span");
 
         //link tag
         self.buttonA = document.createElement("a");
@@ -103,18 +102,38 @@ export function AuctionCard(_orchestrator) {
     this.update = function(auction) {
         self.titleH4.textContent = auction.name;
         self.idSpan.textContent = "#" + auction.auction_id;
-        self.descriptionP.textContent = auction.description;
-        self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
-        self.priceSpan.textContent = (auction.winning_price === 0) ? auction.starting_price : auction.winning_price;
-        self.endDateSpan.textContent = secondsToDate(auction.end_date);
-
-        //TODO: add remaining time if open
+        self.descriptionP.innerHTML = auction.description;
 
 
-        if(auction.closed) //TODO: add the expired case (auction not closed but expired)
+
+
+        if(auction.closed || auction.expired) {
+            self.priceB.textContent = "Final Price: ";
+            if(auction.winning_price === 0) {
+                self.priceSpan.textContent = "No bids were placed";
+                self.euroSpan.style.display = "none";
+            }else{
+                self.priceSpan.textContent = auction.winning_price;
+            }
+
+            if(auction.closed)
+                self.statusP.textContent = "CLOSED";
+            else
+                self.statusP.textContent = "EXPIRED";
+
+            self.endDateSpan.style.display = "none";
+
             self.buttonA.textContent = "Show Details";
-        else {
-            if(mockUserId === auction.userId) //TODO: if the userId is not defined (local session expired), load the login page
+
+        }else {
+            self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
+            self.priceSpan.textContent = (auction.winning_price === 0) ? auction.starting_price : auction.winning_price;
+            self.endDateSpan.textContent = secondsToDate(auction.end_date);
+            self.timeLeftSpan.textContent = getTimeLeft(auction.end_date, localStorage.getItem("last_login"));
+
+            self.statusP.style.display = "none";
+
+            if(localStorage.getItem("user_id") === auction.user_id)
                 self.buttonA.textContent = "Show Offers";
             else
                 self.buttonA.textContent = "Make an offer";
@@ -129,6 +148,6 @@ export function AuctionCard(_orchestrator) {
 
     //remove all the element
     this.cleanup = function() {
-        self.cardContainerDiv.parentNode.removeChild(this.cardContainerDiv);
+        self.cardContainerDiv.parentNode.removeChild(self.cardContainerDiv);
     }
 }
