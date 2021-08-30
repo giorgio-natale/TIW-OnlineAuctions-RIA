@@ -1,13 +1,3 @@
-const bean = {
-    first_name: "Paolo",
-    last_name: "Paolini",
-    street: "AA",
-    city: "BB",
-    province: "CC",
-    zip_code: "00123",
-    other_address_infos: "GG"
-};
-
 export function WinnerDetails(_container, _orchestrator) {
     let self = this;
 
