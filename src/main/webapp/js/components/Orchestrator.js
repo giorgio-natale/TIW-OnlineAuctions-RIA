@@ -12,7 +12,7 @@ import {AuctionDetails} from "./AuctionDetails.js";
 import {WinnerDetails} from "./WinnerDetails.js";
 import {NewBidForm} from "./NewBidForm.js";
 
-// BidsList
+import {BidsList} from "./BidsList.js";
 
 
 //It creates all the components. The init function shows (for now) only the search form. This "class" contains a function
@@ -33,7 +33,7 @@ export function Orchestrator() {
     this.auctionDetails = new AuctionDetails(document.getElementById("section-auctionDetails"), this);
     this.winnerDetails = new WinnerDetails(document.getElementById("section-auctionWinner"), this);
     this.newBidForm = new NewBidForm(document.getElementById("section-addBid"), this);
-    // this.bidsList = new BidsList(document.getElementById("section-bids"), this);
+    this.bidsList = new BidsList(document.getElementById("section-bids"), this);
 
     let self = this;
 
@@ -55,7 +55,7 @@ export function Orchestrator() {
         self.auctionDetails.reset();
         self.winnerDetails.reset();
         self.newBidForm.reset();
-        // self.bidsList.reset();
+        self.bidsList.reset();
 
         self.navBar.activateBuy();
     }
@@ -74,7 +74,7 @@ export function Orchestrator() {
         self.auctionDetails.reset();
         self.winnerDetails.reset();
         self.newBidForm.reset();
-        // self.bidsList.reset();
+        self.bidsList.reset();
 
         self.navBar.activateBuy();
     }
@@ -93,7 +93,7 @@ export function Orchestrator() {
         self.auctionDetails.reset();
         self.winnerDetails.reset();
         self.newBidForm.reset();
-        // self.bidsList.reset();
+        self.bidsList.reset();
 
         self.navBar.activateSell();
     }
@@ -110,9 +110,9 @@ export function Orchestrator() {
         self.closedAuctionsList.reset();
 
         self.auctionDetails.show(auctionID);
-        self.winnerDetails.reset();     // TODO: to be shown
+        self.winnerDetails.show(auctionID);
         self.newBidForm.show(auctionID);
-        // self.bidsList.show();
+        self.bidsList.show(auctionID);
 
         self.navBar.deactivateAll();
     }
