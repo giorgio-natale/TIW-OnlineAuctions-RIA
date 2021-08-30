@@ -11,7 +11,7 @@ export function NewAuctionForm(_container, _orchestrator) {
 
             event.preventDefault();
             if (form.checkValidity()) {
-                makeCall("POST", 'AddAuction', form,
+                makeCall("POST", 'AddAuction', new FormData(form),
                     function (request) {
                         if (request.status === HttpResponseStatus.OK) {
                             self.orchestrator.showSellPage();
@@ -21,8 +21,7 @@ export function NewAuctionForm(_container, _orchestrator) {
                             alert("Error " + request.status + ": " + request.responseText);
                         }
                     },
-                    true,
-                    false
+                    true
                 );
             }
             else {

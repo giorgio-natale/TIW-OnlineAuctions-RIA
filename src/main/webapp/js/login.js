@@ -14,7 +14,7 @@
         const form = document.getElementById("form");
 
         if (form.checkValidity()) {
-            makeCall("POST", 'CheckLogin', form,
+            makeCall("POST", 'CheckLogin', new FormData(form),
 
                 function (request) {
                         const message = request.responseText;

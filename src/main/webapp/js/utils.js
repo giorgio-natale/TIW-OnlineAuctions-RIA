@@ -1,4 +1,4 @@
-function makeCall(method, url, formElement, callback, kickIfUnauthorized = true, reset = true) {
+function makeCall(method, url, formData, callback, kickIfUnauthorized = true) {
     const request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
@@ -16,13 +16,10 @@ function makeCall(method, url, formElement, callback, kickIfUnauthorized = true,
 
     request.open(method, url);
 
-    if (formElement == null)
+    if (formData == null)
         request.send();
     else
-        request.send(new FormData(formElement));
-
-    if (formElement !== null && reset === true)
-        formElement.reset();
+        request.send(formData);
 }
 
 function secondsToDate(seconds) {
