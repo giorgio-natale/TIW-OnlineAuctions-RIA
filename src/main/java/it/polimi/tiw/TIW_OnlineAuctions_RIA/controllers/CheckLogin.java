@@ -2,6 +2,7 @@ package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.UserDAO;
+import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.JsonSerializer;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -62,8 +63,14 @@ public class CheckLogin extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
-            // TODO: convert to JSON first!
-            response.getWriter().println(user);
+            User lightUser = new User();
+            lightUser.setUser_id(user.getUser_id());
+            lightUser.setFirst_name(user.getFirst_name());
+            lightUser.setLast_name(user.getLast_name());
+            lightUser.setLast_login(user.getLast_login());
+
+            String json = JsonSerializer.getInstance().toJson(lightUser, User.class);
+            response.getWriter().println(json);
         }
     }
 }

@@ -24,7 +24,12 @@
         <param-value>C:/TIW_images/</param-value>
     </context-param>
 
+    <filter-mapping>
+        <filter-name>AlreadyLoggedIn</filter-name>
+        <url-pattern>/CheckAlreadyLoggedIn</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>home.html</welcome-file>
     </welcome-file-list>
 </web-app>

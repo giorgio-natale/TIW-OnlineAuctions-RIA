@@ -1,9 +1,17 @@
-function makeCall(method, url, formElement, callback, reset = true) {
+function makeCall(method, url, formElement, callback, kickIfUnauthorized = true, reset = true) {
     const request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-        if (request.readyState === XMLHttpRequest.DONE)
-            callback(request)
+        if (request.readyState === XMLHttpRequest.DONE) {
+
+            if(kickIfUnauthorized && request.status === HttpResponseStatus.UNAUTHORIZED) {
+                localStorage.clear();
+                window.location.href = "index.html";
+                return;
+            }
+
+            callback(request);
+        }
     };
 
     request.open(method, url);
