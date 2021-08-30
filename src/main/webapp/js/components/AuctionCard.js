@@ -68,18 +68,18 @@ export function AuctionCard(_orchestrator) {
         cardDiv.appendChild(cardBodyDiv);
         cardBodyDiv.appendChild(titleDiv);
         titleDiv.appendChild(innerTitleDiv);
-        innerTitleDiv.appendChild(this.titleH4);
+        innerTitleDiv.appendChild(self.titleH4);
         titleDiv.appendChild(idDiv);
-        idDiv.appendChild(this.idSpan);
-        cardBodyDiv.appendChild(this.descriptionP);
+        idDiv.appendChild(self.idSpan);
+        cardBodyDiv.appendChild(self.descriptionP);
         cardBodyDiv.appendChild(priceP);
-        priceP.appendChild(this.priceB);
-        priceP.appendChild(this.priceSpan);
-        priceP.appendChild(euroSpan);
-        cardBodyDiv.appendChild(statusP);
-        statusP.appendChild(endDateB);
-        statusP.appendChild(this.endDateSpan);
-        cardBodyDiv.appendChild(this.buttonA);
+        priceP.appendChild(self.priceB);
+        priceP.appendChild(self.priceSpan);
+        priceP.appendChild(self.euroSpan);
+        cardBodyDiv.appendChild(self.statusP);
+        self.statusP.appendChild(self.endDateB);
+        self.statusP.appendChild(self.endDateSpan);
+        cardBodyDiv.appendChild(self.buttonA);
     }
 
     this.show = function(auction) {
@@ -103,9 +103,6 @@ export function AuctionCard(_orchestrator) {
         self.titleH4.textContent = auction.name;
         self.idSpan.textContent = "#" + auction.auction_id;
         self.descriptionP.innerHTML = auction.description;
-
-
-
 
         if(auction.closed || auction.expired) {
             self.priceB.textContent = "Final Price: ";
