@@ -25,6 +25,12 @@ function makeCall(method, url, formElement, callback, kickIfUnauthorized = true,
         formElement.reset();
 }
 
+function secondsToDate(seconds) {
+    const t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(seconds);
+    return new Intl.DateTimeFormat("it-IT", {year: "numeric", month: "numeric", day: "numeric", hour:"numeric", minute:"numeric"}).format(t);
+}
+
 const HttpResponseStatus = {
     CONTINUE: 100,
     SWITCHING_PROTOCOLS: 101,
