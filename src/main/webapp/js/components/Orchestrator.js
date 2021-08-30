@@ -10,7 +10,8 @@ import {ClosedAuctionsList} from "./ClosedAuctionsList.js";
 
 import {AuctionDetails} from "./AuctionDetails.js";
 import {WinnerDetails} from "./WinnerDetails.js";
-// NewBidForm
+import {NewBidForm} from "./NewBidForm.js";
+
 // BidsList
 
 
@@ -31,7 +32,7 @@ export function Orchestrator() {
 
     this.auctionDetails = new AuctionDetails(document.getElementById("section-auctionDetails"), this);
     this.winnerDetails = new WinnerDetails(document.getElementById("section-auctionWinner"), this);
-    // this.newBidForm = new NewBidForm(document.getElementById("section-addBid"), this);
+    this.newBidForm = new NewBidForm(document.getElementById("section-addBid"), this);
     // this.bidsList = new BidsList(document.getElementById("section-bids"), this);
 
     let self = this;
@@ -53,7 +54,7 @@ export function Orchestrator() {
 
         self.auctionDetails.reset();
         self.winnerDetails.reset();
-        // self.newBidForm.reset();
+        self.newBidForm.reset();
         // self.bidsList.reset();
 
         self.navBar.activateBuy();
@@ -72,7 +73,7 @@ export function Orchestrator() {
 
         self.auctionDetails.reset();
         self.winnerDetails.reset();
-        // self.newBidForm.reset();
+        self.newBidForm.reset();
         // self.bidsList.reset();
 
         self.navBar.activateBuy();
@@ -91,7 +92,7 @@ export function Orchestrator() {
 
         self.auctionDetails.reset();
         self.winnerDetails.reset();
-        // self.newBidForm.reset();
+        self.newBidForm.reset();
         // self.bidsList.reset();
 
         self.navBar.activateSell();
@@ -109,8 +110,8 @@ export function Orchestrator() {
         self.closedAuctionsList.reset();
 
         self.auctionDetails.show(auctionID);
-        self.winnerDetails.show();
-        // self.newBidForm.show();
+        self.winnerDetails.show(auctionID);
+        self.newBidForm.show(auctionID);
         // self.bidsList.show();
 
         self.navBar.deactivateAll();
