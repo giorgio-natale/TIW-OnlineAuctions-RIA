@@ -1,41 +1,5 @@
 import {AuctionCard} from "./AuctionCard.js";
 
-const auction1 = {
-    title: "Titolo di prova 1",
-    id: 1,
-    userId: 1,
-    description: "Asta di prova",
-    price: 34.5,
-    endDate: "27/05/2022",
-    startingPrice: 50,
-    winningPrice: 100,
-    closed: false
-};
-const auction2 = {
-    title: "Titolo di prova 2",
-    id: 2,
-    userId: 2,
-    description: "Asta di prova",
-    price: 34.5,
-    endDate: "27/05/2022",
-    startingPrice: 70,
-    winningPrice: 150,
-    closed: true
-};
-const auction3 = {
-    title: "Titolo di prova 3",
-    id: 3,
-    userId: 3,
-    description: "Asta di prova",
-    price: 34.5,
-    endDate: "27/05/2022",
-    startingPrice: 100,
-    winningPrice: 0,
-    closed: false
-};
-
-const mockAuctions = [auction1, auction2, auction3];
-
 //This component takes care of the auctions found after the search interaction.
 export function FoundAuctionsList(_container, _orchestrator){
     let self = this;
@@ -47,15 +11,21 @@ export function FoundAuctionsList(_container, _orchestrator){
 
     self.cards = [];
 
-    //fetch all found auctions from database (use the 'searchString' parameter to make the ajax request)
-    this.show = function(searchString){
-        //TODO: use ajax instead
-        setTimeout(() => {
-            self.update(mockAuctions);
-        }, 10);
+    this.show = function(searchString) {
+        makeCall("GET", "GetFoundAuctionsList?search=" + searchString, null,
+            function (request) {
+                if (request.status === HttpResponseStatus.OK) {
+                    self.update(JSON.parse(request.responseText));
+                }
+                else {
+                    // TODO: error handling
+                    alert("Error " + request.status + ": " + request.responseText);
+                }
+            }
+        );
     }
 
-    this.update = function(_auctionsToShow){
+    this.update = function(_auctionsToShow) {
         self.reset();
         self.container.style.display = "";
 
@@ -79,7 +49,7 @@ export function FoundAuctionsList(_container, _orchestrator){
         });
     }
 
-    this.reset = function(){
+    this.reset = function() {
         self.container.style.display = "none";
         self.cards.forEach((c) => {
             c.cleanup();
