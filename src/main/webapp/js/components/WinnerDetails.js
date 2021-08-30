@@ -23,10 +23,17 @@ export function WinnerDetails(_container, _orchestrator) {
     self.otherAddressInfos = document.getElementById("auctionWinner-other");
 
     this.show = function(auctionID) {
-        //TODO: use ajax instead
-        setTimeout(() => {
-            self.update(bean);
-        }, 10);
+        makeCall("GET", "GetAuctionWinner?auctionID=" + auctionID, null,
+            function (request) {
+                if (request.status === HttpResponseStatus.OK) {
+                    self.update(JSON.parse(request.responseText));
+                }
+                else {
+                    // TODO: error handling
+                    alert("Error " + request.status + ": " + request.responseText);
+                }
+            }
+        );
     }
 
     this.update = function(userBean) {
