@@ -28,6 +28,17 @@ function secondsToDate(seconds) {
     return new Intl.DateTimeFormat("it-IT", {year: "numeric", month: "numeric", day: "numeric", hour:"numeric", minute:"numeric"}).format(t);
 }
 
+function getTimeLeft(endDateSeconds, lastLoginSeconds){
+    let deltaSeconds = endDateSeconds - lastLoginSeconds;
+    let days = Math.floor(deltaSeconds / (60*60*24));
+    deltaSeconds -= days * 60 * 60 * 24;
+    let hours = Math.floor(deltaSeconds / (60*60));
+    deltaSeconds -= hours * 60 * 60;
+    let minutes = Math.floor(deltaSeconds / (60));
+
+    return days + " days" + hours + " hours" + minutes + " minutes";
+}
+
 const HttpResponseStatus = {
     CONTINUE: 100,
     SWITCHING_PROTOCOLS: 101,
