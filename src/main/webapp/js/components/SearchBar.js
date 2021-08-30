@@ -7,15 +7,21 @@ export function SearchBar(_container, _orchestrator){
     self.searchTag = document.getElementById("search-input");
 
     this.registerEvents = function() {
-        self.formTag.addEventListener("submit", (evt) => {
+        self.formTag.addEventListener("submit", (event) => {
             //prevent the default behavior of this event (send a get request)
-            evt.preventDefault();
+            event.preventDefault();
             if (!self.searchTag.checkValidity()) {
                 self.searchTag.reportValidity();
                 return;
             }
 
-            self.orchestrator.showSearchResults(self.searchTag.value);
+            if(!self.searchTag.value.match(/^[a-z0-9 ]+$/i)) {
+                // TODO: display error
+                alert("Invalid character in search!")
+                return;
+            }
+
+            self.orchestrator.showSearchResults(self.searchTag.value.toLowerCase().replace(" ", "+"));
         });
     }
 
