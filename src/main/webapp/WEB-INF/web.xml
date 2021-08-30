@@ -27,6 +27,8 @@
     <filter-mapping>
         <filter-name>AlreadyLoggedIn</filter-name>
         <url-pattern>/CheckAlreadyLoggedIn</url-pattern>
+        <url-pattern>/GetAuctionsList</url-pattern>
+        <url-pattern>/GetBids</url-pattern>
     </filter-mapping>
 
     <welcome-file-list>
