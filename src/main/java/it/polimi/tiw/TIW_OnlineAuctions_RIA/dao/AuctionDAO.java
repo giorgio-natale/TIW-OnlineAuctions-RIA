@@ -201,7 +201,7 @@ public class AuctionDAO {
         }
     }
 
-    public void addNewAuction(int userId, String name, String description, int startingPrice, int minPriceGap, Instant endDate, String uploadPath, Part filePart) throws SQLException, IOException {
+    public void addNewAuction(int userId, String name, String description, double startingPrice, double minPriceGap, Instant endDate, String uploadPath, Part filePart) throws SQLException, IOException {
 
         String query =
                 "INSERT INTO auction (user_id, name, description, starting_price, min_price_gap, end_date, closed) " +
@@ -216,8 +216,8 @@ public class AuctionDAO {
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, startingPrice);
-            preparedStatement.setInt(5, minPriceGap);
+            preparedStatement.setDouble(4, startingPrice);
+            preparedStatement.setDouble(5, minPriceGap);
             preparedStatement.setTimestamp(6, Timestamp.from(endDate));
 
             if(preparedStatement.executeUpdate() != 1) {
