@@ -8,11 +8,7 @@ import {NewAuctionForm} from "./NewAuctionForm.js";
 import {OpenAuctionsList} from "./OpenAuctionsList.js";
 import {ClosedAuctionsList} from "./ClosedAuctionsList.js";
 
-import {AuctionDetails} from "./AuctionDetails.js";
-import {WinnerDetails} from "./WinnerDetails.js";
-import {NewBidForm} from "./NewBidForm.js";
-
-import {BidsList} from "./BidsList.js";
+import {AuctionPage} from "./AuctionPage.js";
 
 
 //It creates all the components. The init function shows (for now) only the search form. This "class" contains a function
@@ -30,10 +26,7 @@ export function Orchestrator() {
     this.openAuctionsList = new OpenAuctionsList(document.getElementById("section-open"), this);
     this.closedAuctionsList = new ClosedAuctionsList(document.getElementById("section-closed"), this);
 
-    this.auctionDetails = new AuctionDetails(document.getElementById("section-auctionDetails"), this);
-    this.winnerDetails = new WinnerDetails(document.getElementById("section-auctionWinner"), this);
-    this.newBidForm = new NewBidForm(document.getElementById("section-addBid"), this);
-    this.bidsList = new BidsList(document.getElementById("section-bids"), this);
+    this.auctionPage = new AuctionPage(this);
 
     let self = this;
 
@@ -52,10 +45,7 @@ export function Orchestrator() {
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
-        self.auctionDetails.reset();
-        self.winnerDetails.reset();
-        self.newBidForm.reset();
-        self.bidsList.reset();
+        self.auctionPage.reset();
 
         self.navBar.activateBuy();
     }
@@ -71,10 +61,7 @@ export function Orchestrator() {
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
-        self.auctionDetails.reset();
-        self.winnerDetails.reset();
-        self.newBidForm.reset();
-        self.bidsList.reset();
+        self.auctionPage.reset();
 
         self.navBar.activateBuy();
     }
@@ -90,10 +77,7 @@ export function Orchestrator() {
         self.openAuctionsList.show();
         self.closedAuctionsList.show();
 
-        self.auctionDetails.reset();
-        self.winnerDetails.reset();
-        self.newBidForm.reset();
-        self.bidsList.reset();
+        self.auctionPage.reset();
 
         self.navBar.activateSell();
     }
@@ -109,10 +93,7 @@ export function Orchestrator() {
         self.openAuctionsList.reset();
         self.closedAuctionsList.reset();
 
-        self.auctionDetails.show(auctionID);
-        self.winnerDetails.show(auctionID);
-        self.newBidForm.show(auctionID);
-        self.bidsList.show(auctionID);
+        self.auctionPage.show(auctionID);
 
         self.navBar.deactivateAll();
     }

@@ -1,9 +1,9 @@
-//This is just a mock component that prints the id of the auction
-export function AuctionDetails(_container, _orchestrator){
+export function AuctionDetails(_container, _orchestrator) {
     let self = this;
 
     self.container = _container;
     self.orchestrator = _orchestrator;
+    self.auctionID = 0;
 
     self.image = document.getElementById("auctionDetails-image");
     self.name = document.getElementById("auctionDetails-name");
@@ -15,23 +15,12 @@ export function AuctionDetails(_container, _orchestrator){
     self.endDate = document.getElementById("auctionDetails-endDate");
     self.timeLeft = document.getElementById("auctionDetails-timeLeft");
     self.closeForm = document.getElementById("auctionDetails-closeForm");
+    self.closeDiv = document.getElementById("auctionDetails-closeDiv");
     self.offersTitle = document.getElementById("auctionDetails-offersTitle");
 
-    this.show = function (auctionID) {
-        makeCall("GET", "GetAuctionDetails?auctionID=" + auctionID, null,
-            function (request) {
-                if (request.status === HttpResponseStatus.OK) {
-                    let pair = JSON.parse(request.responseText)
-
-                    self.update(pair.auction, pair.owner)
-                }
-                else {
-                    // TODO: error handling
-                    alert("Error " + request.status + ": " + request.responseText);
-                }
-            }
-        );
-
+    this.show = function (auctionDetails, lightOwnerDetails) {
+        self.auctionID = auctionDetails.auction_id;
+        self.update(auctionDetails, lightOwnerDetails);
         self.container.style.display = "";
     }
 
@@ -56,7 +45,10 @@ export function AuctionDetails(_container, _orchestrator){
         if(auctionDetails.expired === true || auctionDetails.closed === true || auctionDetails.end_date < localStorage.getItem("last_login"))
             self.priceLabel.textContent = "Final price:";
         else
-            self.priceLabel.textContent = "Current price:";
+            if(auctionDetails.winning_price === 0)
+                self.priceLabel.textContent = "Starting price:";
+            else
+                self.priceLabel.textContent = "Current price:";
 
         if(auctionDetails.winning_price === 0)
             if(auctionDetails.expired === true || auctionDetails.closed === true)
@@ -80,9 +72,48 @@ export function AuctionDetails(_container, _orchestrator){
             self.offersTitle.style.display = "none";
         else
             self.offersTitle.style.display = "";
+
+        if(auctionDetails.closed === false && auctionDetails.expired === true && String(auctionDetails.user_id) === localStorage.getItem("user_id"))
+            self.closeDiv.style.display = "";
+        else
+            self.closeDiv.style.display = "none";
     }
 
     this.reset = function() {
         self.container.style.display = "none";
     }
+
+    function submitForm() {
+        if (self.closeForm.checkValidity()) {
+
+            let finalForm = new FormData(self.closeForm);
+            finalForm.append("auctionID", self.auctionID);
+
+            makeCall("POST", 'CloseAuction', finalForm,
+                function (request) {
+                    if (request.status === HttpResponseStatus.OK) {
+                        self.orchestrator.showDetailsAndBids(self.auctionID);
+                        self.closeForm.reset();
+                    }
+                    else {
+                        // TODO: error handling
+                        alert("Error " + request.status + ": " + request.responseText);
+                    }
+                },
+                true
+            );
+        }
+        else {
+            self.closeForm.reportValidity();
+        }
+    }
+
+    this.registerEvents = function() {
+        self.closeForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            submitForm();
+        });
+    }
+
+    this.registerEvents();
 }

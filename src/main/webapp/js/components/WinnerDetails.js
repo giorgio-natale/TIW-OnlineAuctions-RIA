@@ -45,6 +45,8 @@ export function WinnerDetails(_container, _orchestrator) {
             self.name.textContent = userBean.first_name + ' ' + userBean.last_name;
             self.address.textContent = userBean.street + ' - ' + userBean.city + ' (' + userBean.province + ') ' + userBean.zip_code;
         }
+
+        self.container.style.display = "";
     }
 
     this.reset = function () {
