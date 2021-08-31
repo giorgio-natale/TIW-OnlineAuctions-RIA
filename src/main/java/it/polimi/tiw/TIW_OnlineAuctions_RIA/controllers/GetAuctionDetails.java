@@ -4,6 +4,7 @@ import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.Auction;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.UserDAO;
+import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.JsonSerializer;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +89,8 @@ public class GetAuctionDetails extends HttpServlet {
             response.getWriter().println("Unable to retrieve a closed or expired auction as neither the owner or the winner");
             return;
         }
+
+        CookieManager.addVisitedAuction(connection, request, response, auctionId);
 
         owner.setEmail(null);
         owner.setStreet(null);

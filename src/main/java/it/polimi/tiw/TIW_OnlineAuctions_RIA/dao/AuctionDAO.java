@@ -274,5 +274,33 @@ public class AuctionDAO {
         }
 
     }
+
+    public List<Integer> clearClosedAndExpiredAuctions (List<Integer> auctions) throws SQLException {
+        StringBuilder str = new StringBuilder();
+
+        String sep = "";
+        for(int i : auctions) {
+            str.append(sep).append(i);
+            sep = ",";
+        }
+
+        String query =
+                "SELECT auction_id " +
+                "FROM auction " +
+                "WHERE auction_id IN (" + str + ") AND closed = false AND (NOW() > end_date) = false;";
+
+        List<Integer> openAuctions = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet result = preparedStatement.executeQuery()) {
+
+                while (result.next()) {
+                    openAuctions.add(result.getInt("auction_id"));
+                }
+
+                return openAuctions;
+            }
+        }
+    }
 }
 
