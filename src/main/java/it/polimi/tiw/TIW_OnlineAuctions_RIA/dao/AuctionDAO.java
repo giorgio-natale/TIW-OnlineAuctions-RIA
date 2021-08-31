@@ -253,7 +253,7 @@ public class AuctionDAO {
                         throw new IOException("The submitted file had an unsupported exception");
                     }
                 }else{
-                    imageUpdateStatement.setString(1, "default.jpg");
+                    imageUpdateStatement.setString(1, "default.png");
                 }
                 imageUpdateStatement.setInt(2, newId);
 
