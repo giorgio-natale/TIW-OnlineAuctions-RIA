@@ -167,6 +167,9 @@ public class AuctionDAO {
     }
 
     public List<Auction> getAuctionDetails(List<Integer> auctionIDs) throws SQLException {
+        if(auctionIDs.isEmpty())
+            return new ArrayList<>();
+
         StringBuilder sb = new StringBuilder();
 
         String sep = "";
