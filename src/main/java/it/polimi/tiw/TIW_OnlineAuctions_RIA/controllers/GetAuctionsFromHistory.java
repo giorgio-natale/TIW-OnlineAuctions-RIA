@@ -34,7 +34,7 @@ public class GetAuctionsFromHistory extends HttpServlet {
 
         int userId = ((User) request.getSession().getAttribute("user")).getUser_id();
 
-        List<Integer> idList = CookieManager.getAuctionIdsFromCookie(CookieManager.getCookie(request, CookieManager.HISTORY_KEY_PREFIX + userId, "W10").getValue());
+        List<Integer> idList = CookieManager.getAuctionIdsFromCookie(CookieManager.getCookie(request, CookieManager.HISTORY_KEY_PREFIX + userId, CookieManager.DEFAULT_ENCODED_HISTORY_VALUE).getValue());
 
         AuctionDAO auctionDAO = new AuctionDAO(connection);
 

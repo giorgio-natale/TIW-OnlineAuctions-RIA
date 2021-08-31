@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class CookieManager {
     public static final String HISTORY_KEY_PREFIX = "auctionsHistory.";
     public static final int MAX_HISTORY_SIZE = 50;
+    public static final String DEFAULT_ENCODED_HISTORY_VALUE = "W10";
 
     public static final String LAST_ACTION_KEY_PREFIX = "lastAction.";
     public static final List<String> ACCEPTED_ACTIONS = Arrays.asList("search", "bid", "create", "close");
@@ -46,7 +47,7 @@ public class CookieManager {
     public static void addVisitedAuction(Connection connection, HttpServletRequest request, HttpServletResponse response, int auctionID, int userID) {
         List<Integer> auctions;
 
-        Cookie oldCookie = getCookie(request, HISTORY_KEY_PREFIX + userID, "W10"); // in base64: []
+        Cookie oldCookie = getCookie(request, HISTORY_KEY_PREFIX + userID, DEFAULT_ENCODED_HISTORY_VALUE); // in base64: []
 
         auctions = getAuctionIdsFromCookie(oldCookie.getValue());
 
