@@ -36,7 +36,7 @@ function getTimeLeft(endDateSeconds, lastLoginSeconds){
     deltaSeconds -= hours * 60 * 60;
     let minutes = Math.floor(deltaSeconds / (60));
 
-    return days + " days" + hours + " hours" + minutes + " minutes";
+    return days + " days " + hours + " hours " + minutes + " min";
 }
 
 const HttpResponseStatus = {

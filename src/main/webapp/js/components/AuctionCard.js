@@ -50,8 +50,11 @@ export function AuctionCard(_orchestrator) {
         self.statusP = document.createElement("p");
         self.statusP.className += "card-text";
 
-        self.endDateB = document.createElement("b");
-        self.endDateB.innerHTML = "End Date: ";
+        //end date or closed/expired label
+        self.statusB = document.createElement("b");
+
+        //status tag
+        self.statusSpan = document.createElement("span");
 
         //end date tag
         self.endDateSpan = document.createElement("span");
@@ -77,8 +80,10 @@ export function AuctionCard(_orchestrator) {
         priceP.appendChild(self.priceSpan);
         priceP.appendChild(self.euroSpan);
         cardBodyDiv.appendChild(self.statusP);
-        self.statusP.appendChild(self.endDateB);
+        self.statusP.appendChild(self.statusB);
+        self.statusP.appendChild(self.statusSpan);
         self.statusP.appendChild(self.endDateSpan);
+        self.statusP.appendChild(self.timeLeftSpan);
         cardBodyDiv.appendChild(self.buttonA);
     }
 
@@ -113,22 +118,25 @@ export function AuctionCard(_orchestrator) {
                 self.priceSpan.textContent = auction.winning_price;
             }
 
+            self.statusB.textContent = "Status: ";
             if(auction.closed)
-                self.statusP.textContent = "CLOSED";
+                self.statusSpan.textContent = "CLOSED";
             else
-                self.statusP.textContent = "EXPIRED";
+                self.statusSpan.textContent = "EXPIRED";
 
             self.endDateSpan.style.display = "none";
+            self.timeLeftSpan.style.display = "none";
 
             self.buttonA.textContent = "Show Details";
 
-        }else {
+        } else {
             self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
             self.priceSpan.textContent = (auction.winning_price === 0) ? auction.starting_price : auction.winning_price;
+            self.statusB.textContent = "End Date: ";
             self.endDateSpan.textContent = secondsToDate(auction.end_date);
-            self.timeLeftSpan.textContent = getTimeLeft(auction.end_date, localStorage.getItem("last_login"));
+            self.timeLeftSpan.textContent = " (" + getTimeLeft(auction.end_date, localStorage.getItem("last_login")) + " left)";
 
-            self.statusP.style.display = "none";
+            self.statusSpan.style.display = "none";
 
             if(localStorage.getItem("user_id") === auction.user_id)
                 self.buttonA.textContent = "Show Offers";
