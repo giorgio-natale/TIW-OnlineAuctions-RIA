@@ -1,13 +1,20 @@
 (function () {
 
-    window.addEventListener("load", () =>
-        makeCall("GET", "CheckAlreadyLoggedIn", null,
-            function (request) {
-                if (request.status === HttpResponseStatus.OK)
-                    window.location.href = "home.html";
-            },
-            false
-        )
+    let form;
+    window.addEventListener("load", () => {
+            makeCall("GET", "CheckAlreadyLoggedIn", null,
+                function (request) {
+                    if (request.status === HttpResponseStatus.OK)
+                        window.location.href = "home.html";
+                },
+                false
+            )
+            form = document.getElementById("form");
+            document.getElementById("form").addEventListener("submit", (e) =>{
+                e.preventDefault();
+                checkLogin();
+            });
+        }
     );
 
     function checkLogin() {
@@ -52,10 +59,6 @@
         }
     }
 
-    document.getElementById("button").addEventListener("click", () => checkLogin());
-    document.addEventListener("keypress", (e) => {
-        if(e.key === "Enter" && e.altKey === false &&  e.ctrlKey === false)
-            checkLogin();
-    });
+
 
 })();
