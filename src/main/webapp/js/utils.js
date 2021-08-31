@@ -39,6 +39,10 @@ function getTimeLeft(endDateSeconds, lastLoginSeconds){
     return days + " days " + hours + " hours " + minutes + " min";
 }
 
+function getPriceFormat(price) {
+    return String((Math.round(price * 100) / 100).toFixed(2));
+}
+
 const HttpResponseStatus = {
     CONTINUE: 100,
     SWITCHING_PROTOCOLS: 101,
