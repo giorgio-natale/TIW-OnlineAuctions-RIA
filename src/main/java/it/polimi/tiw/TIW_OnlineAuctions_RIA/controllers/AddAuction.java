@@ -2,6 +2,7 @@ package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
+import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -168,6 +169,8 @@ public class AddAuction extends HttpServlet {
             response.getWriter().println(e.getMessage());
             return;
         }
+
+        CookieManager.setLastAction(request, response, "create", ((User) request.getSession().getAttribute("user")).getUser_id());
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");

@@ -3,6 +3,7 @@ package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.Auction;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
+import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
 import org.thymeleaf.TemplateEngine;
@@ -91,6 +92,8 @@ public class CloseAuction extends HttpServlet {
             response.getWriter().println("Failure in database fetch: failed to close auction");
             return;
         }
+
+        CookieManager.setLastAction(request, response, "close", ((User) request.getSession().getAttribute("user")).getUser_id());
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println("Auction closed successfully");

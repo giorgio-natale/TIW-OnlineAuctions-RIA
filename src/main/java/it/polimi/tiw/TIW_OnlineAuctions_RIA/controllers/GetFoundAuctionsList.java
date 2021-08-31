@@ -3,6 +3,7 @@ package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.Auction;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
+import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.JsonSerializer;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
@@ -52,6 +53,8 @@ public class GetFoundAuctionsList extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database fetch: failed to search through open auctions");
             return;
         }
+
+        CookieManager.setLastAction(request, response, "search", ((User) request.getSession().getAttribute("user")).getUser_id());
 
         String serializedAuctions = JsonSerializer.getInstance().toJson(auctions);
 
