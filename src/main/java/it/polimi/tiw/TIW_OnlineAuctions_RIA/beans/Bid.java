@@ -64,17 +64,4 @@ public class Bid {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public static String getFormattedPrice(double price) {
-        DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(price);
-    }
-
-    public static String getFormattedDateTime(Instant datetime) {
-        DateTimeFormatter formatter = DateTimeFormatter .ofLocalizedDateTime(FormatStyle.SHORT)
-                .withLocale(Locale.ITALY)
-                .withZone(ZoneId.systemDefault());
-
-        return formatter.format(datetime);
-    }
 }

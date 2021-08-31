@@ -118,28 +118,6 @@ public class Auction {
     public void setWinner_id(int winner_id) {
         this.winner_id = winner_id;
     }
-
-    public String getTimeLeft(Instant lastLogin) {
-        Duration duration = Duration.between(lastLogin, getEnd_date());
-
-        if(duration.getSeconds() < 0)
-            return "Expired";
-
-        return duration.toDaysPart() + " days " + duration.toHoursPart() + " hours";
-    }
-
-    public static String getFormattedPrice(double price) {
-        DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(price);
-    }
-
-    public static String getFormattedDateTime(Instant datetime) {
-        DateTimeFormatter formatter = DateTimeFormatter .ofLocalizedDateTime(FormatStyle.SHORT)
-                .withLocale(Locale.ITALY)
-                .withZone(ZoneId.systemDefault());
-
-        return formatter.format(datetime);
-    }
 }
 
 

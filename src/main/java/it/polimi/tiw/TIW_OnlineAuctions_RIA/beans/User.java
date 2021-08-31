@@ -16,6 +16,8 @@ public class User {
     private String other_address_infos;
     private Instant last_login;
 
+    private boolean new_user;
+
     public int getUser_id() {
         return user_id;
     }
@@ -96,16 +98,11 @@ public class User {
         this.last_login = last_login;
     }
 
-    public static int getTimeOfDay(Instant instant) {
-        int hour = instant.atZone(ZoneId.of("Europe/Rome")).getHour();
+    public boolean isNew_user() {
+        return new_user;
+    }
 
-        if(hour >= 6 && hour <= 12)
-            return 0;
-        else if(hour > 12 && hour <= 18)
-            return 1;
-        else if(hour > 18 && hour <= 21)
-            return 2;
-        else
-            return 3;
+    public void setNew_user(boolean new_user) {
+        this.new_user = new_user;
     }
 }

@@ -56,16 +56,36 @@ public class UserDAO {
         if(user != null) {
 
             String query1 =
+                    "SELECT (last_login IS NULL) AS new_user " +
+                    "FROM user " +
+                    "WHERE user_id = ?;";
+
+            String query2 =
                     "UPDATE user " +
                     "SET last_login = NOW() " +
                     "WHERE user_id = ?;";
 
-            String query2 =
+            String query3 =
                     "SELECT last_login " +
                     "FROM user " +
                     "WHERE user_id = ?;";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query1)) {
+                preparedStatement.setInt(1, user.getUser_id());
+
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    if (!result.isBeforeFirst()) {
+                        connection.setAutoCommit(true);
+                        return null;
+                    }
+                    else {
+                        result.next();
+                        user.setNew_user(result.getBoolean("new_user"));
+                    }
+                }
+            }
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
                 preparedStatement.setInt(1, user.getUser_id());
 
                 if(preparedStatement.executeUpdate() != 1) {
@@ -75,7 +95,7 @@ public class UserDAO {
                 }
             }
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query3)) {
                 preparedStatement.setInt(1, user.getUser_id());
 
                 try (ResultSet result = preparedStatement.executeQuery()) {

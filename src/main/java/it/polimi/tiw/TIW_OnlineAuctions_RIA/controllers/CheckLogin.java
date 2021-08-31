@@ -68,6 +68,7 @@ public class CheckLogin extends HttpServlet {
             lightUser.setFirst_name(user.getFirst_name());
             lightUser.setLast_name(user.getLast_name());
             lightUser.setLast_login(user.getLast_login());
+            lightUser.setNew_user(user.isNew_user());
 
             String json = JsonSerializer.getInstance().toJson(lightUser, User.class);
             response.getWriter().println(json);

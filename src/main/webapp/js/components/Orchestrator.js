@@ -31,7 +31,10 @@ export function Orchestrator() {
     let self = this;
 
     this.init = function() {
-        self.showBuyPage();
+        if(localStorage.getItem("new_user") === String(true))
+            self.showBuyPage();
+        else
+            self.showSellPage();
     }
 
     this.showSearchResults = function(searchString) {
