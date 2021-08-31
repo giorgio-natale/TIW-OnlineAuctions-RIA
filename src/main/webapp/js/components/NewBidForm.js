@@ -33,18 +33,7 @@ export function NewBidForm(_container, _orchestrator) {
             }
         }
 
-        document.getElementById("addBid-button").addEventListener(
-            "click",
-            (e) => submitForm(e)
-        );
-        document.addEventListener(
-            "keypress",
-            (e) => {
-                if(e.key === "Enter" && e.altKey === false &&  e.ctrlKey === false)
-                    submitForm(e);
-            }
-        );
-
+        document.getElementById("addBid-form").addEventListener("submit",(e) => submitForm(e));
     }
 
     this.reset = function(){
