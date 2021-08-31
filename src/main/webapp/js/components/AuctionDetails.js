@@ -35,8 +35,7 @@ export function AuctionDetails(_container, _orchestrator){
     }
 
     this.update = function(auctionDetails, lightOwnerDetails) {
-        // TODO: get real image
-        self.image.src = "C:/TIW_images/default.png";
+        self.image.src = "GetImage?auctionId=" + auctionDetails.auction_id;
 
         self.name.textContent = auctionDetails.name;
         self.descrption.textContent = auctionDetails.description;
