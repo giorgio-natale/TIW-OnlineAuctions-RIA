@@ -54,7 +54,7 @@ export function BidCard(){
             self.userSpan.className += " bg-secondary";
             self.userSpan.textContent = bid.user_first_name + " " + bid.user_last_name + " (You)";
         }
-        self.priceBidSpan.textContent = bid.price;
+        self.priceBidSpan.textContent = getPriceFormat(bid.price);
         self.dateSpan.textContent = ' - ' + secondsToDate(bid.bid_time);
     }
 

@@ -45,7 +45,7 @@ export function AuctionCard(_orchestrator) {
         self.priceSpan = document.createElement("span");
 
         self.euroSpan = document.createElement("span");
-        self.euroSpan.innerHTML = "&euro;";
+        self.euroSpan.innerHTML = " &euro;";
 
         self.statusP = document.createElement("p");
         self.statusP.className += "card-text";
@@ -115,7 +115,7 @@ export function AuctionCard(_orchestrator) {
                 self.priceSpan.textContent = "No bids were placed";
                 self.euroSpan.style.display = "none";
             }else{
-                self.priceSpan.textContent = auction.winning_price;
+                self.priceSpan.textContent = getPriceFormat(auction.winning_price);
             }
 
             self.statusB.textContent = "Status: ";
@@ -131,7 +131,7 @@ export function AuctionCard(_orchestrator) {
 
         } else {
             self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
-            self.priceSpan.textContent = (auction.winning_price === 0) ? auction.starting_price : auction.winning_price;
+            self.priceSpan.textContent = (auction.winning_price === 0) ? getPriceFormat(auction.starting_price) : getPriceFormat(auction.winning_price);
             self.statusB.textContent = "End Date: ";
             self.endDateSpan.textContent = secondsToDate(auction.end_date);
             self.timeLeftSpan.textContent = " (" + getTimeLeft(auction.end_date, localStorage.getItem("last_login")) + " left)";

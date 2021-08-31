@@ -15,6 +15,7 @@ export function AuctionDetails(_container, _orchestrator){
     self.endDate = document.getElementById("auctionDetails-endDate");
     self.timeLeft = document.getElementById("auctionDetails-timeLeft");
     self.closeForm = document.getElementById("auctionDetails-closeForm");
+    self.offersTitle = document.getElementById("auctionDetails-offersTitle");
 
     this.show = function (auctionID) {
         makeCall("GET", "GetAuctionDetails?auctionID=" + auctionID, null,
@@ -59,13 +60,13 @@ export function AuctionDetails(_container, _orchestrator){
 
         if(auctionDetails.winning_price === 0)
             if(auctionDetails.expired === true || auctionDetails.closed === true)
-                self.price.innerHTML = auctionDetails.starting_price + "&euro; (No bids were placed)";
+                self.price.innerHTML = getPriceFormat(auctionDetails.starting_price) + " &euro; <span class='fw-bold'>(No bids were placed)</span>";
             else
-                self.price.innerHTML = auctionDetails.starting_price + "&euro;";
+                self.price.innerHTML = getPriceFormat(auctionDetails.starting_price) + " &euro;";
         else
-            self.price.innerHTML = auctionDetails.winning_price + "&euro;";
+            self.price.innerHTML = getPriceFormat(auctionDetails.winning_price) + " &euro;";
 
-        self.minimumRebid.textContent = auctionDetails.min_price_gap;
+        self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
         self.endDate.textContent = secondsToDate(auctionDetails.end_date);
     }
 
