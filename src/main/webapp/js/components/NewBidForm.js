@@ -4,45 +4,50 @@ export function NewBidForm(_container, _orchestrator) {
     self.container = _container;
     self.orchestrator = _orchestrator;
 
-    this.registerEvents = function(auctionID) {
+    self.auctionID = 0;
+    self.form = document.getElementById("addBid-form");
 
-        function submitForm(event) {
-            const form = document.getElementById("addBid-form");
+    function submitForm() {
+        if (self.form.checkValidity()) {
 
-            event.preventDefault();
-            if (form.checkValidity()) {
+            let finalForm = new FormData(self.form);
+            finalForm.append("addBid-auctionId", self.auctionID);
 
-                let finalForm = new FormData(form);
-                finalForm.append("addBid-auctionId", auctionID);
-
-                makeCall("POST", 'AddBid', finalForm,
-                    function (request) {
-                        if (request.status === HttpResponseStatus.OK) {
-                            self.orchestrator.showDetailsAndBids(auctionID);
-                        }
-                        else {
-                            // TODO: error handling
-                            alert("Error " + request.status + ": " + request.responseText);
-                        }
-                    },
-                    true
-                );
-            }
-            else {
-                form.reportValidity();
-            }
+            makeCall("POST", 'AddBid', finalForm,
+                function (request) {
+                    if (request.status === HttpResponseStatus.OK) {
+                        self.orchestrator.showDetailsAndBids(self.auctionID);
+                        self.form.reset();
+                    }
+                    else {
+                        // TODO: error handling
+                        alert("Error " + request.status + ": " + request.responseText);
+                    }
+                },
+                true
+            );
         }
-
-        document.getElementById("addBid-form").addEventListener("submit",(e) => submitForm(e));
+        else {
+            self.form.reportValidity();
+        }
     }
 
-    this.reset = function(){
+    this.registerEvents = function() {
+        self.form.addEventListener("submit",(e) => {
+            e.preventDefault();
+            submitForm();
+        });
+    }
+
+    this.reset = function() {
         self.container.style.display = "none";
+        self.form.reset();
     }
 
-    this.show = function(auctionID){
-        this.registerEvents(auctionID);
+    this.show = function(_auctionID){
+        self.auctionID = _auctionID;
         self.container.style.display = "";
     }
 
+    self.registerEvents();
 }
