@@ -75,10 +75,11 @@ public class GetAuctionWinner extends HttpServlet {
             return;
         }
 
-        // check if the request is from the auction's owner
-        if(auction.getUser_id() != ((User) request.getSession().getAttribute("user")).getUser_id()) {
+        // check if the request is from the auction's owner or the winner
+        int clientID = ((User) request.getSession().getAttribute("user")).getUser_id();
+        if(auction.getUser_id() != clientID && auction.getWinner_id() != clientID) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("Invalid request: only the owner of the auction can gather the winner");
+            response.getWriter().println("Invalid request: only the owner or the winner of the auction can gather the winner");
             return;
         }
 
