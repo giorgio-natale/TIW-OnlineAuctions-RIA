@@ -67,7 +67,7 @@ export function AuctionDetails(_container, _orchestrator){
             self.price.innerHTML = getPriceFormat(auctionDetails.winning_price) + " &euro;";
 
         self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
-        self.endDate.textContent = secondsToDate(auctionDetails.end_date);
+        self.endDate.textContent = parseDate(auctionDetails.end_date);
 
         if(auctionDetails.closed === true)
             self.timeLeft.textContent = "(CLOSED)";

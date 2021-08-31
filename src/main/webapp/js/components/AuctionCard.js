@@ -133,7 +133,7 @@ export function AuctionCard(_orchestrator) {
             self.priceB.textContent = (auction.winning_price === 0) ? "Starting Price: " : "Current Price: ";
             self.priceSpan.textContent = (auction.winning_price === 0) ? getPriceFormat(auction.starting_price) : getPriceFormat(auction.winning_price);
             self.statusB.textContent = "End Date: ";
-            self.endDateSpan.textContent = secondsToDate(auction.end_date);
+            self.endDateSpan.textContent = parseDate(auction.end_date);
             self.timeLeftSpan.textContent = " (" + getTimeLeft(auction.end_date, localStorage.getItem("last_login")) + " left)";
 
             self.statusSpan.style.display = "none";

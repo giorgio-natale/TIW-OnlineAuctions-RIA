@@ -22,14 +22,14 @@ function makeCall(method, url, formData, callback, kickIfUnauthorized = true) {
         request.send(formData);
 }
 
-function secondsToDate(seconds) {
-    const t = new Date(1970, 0, 1); // Epoch
-    t.setSeconds(seconds);
+function parseDate(date) {
+    const t = Date.parse(date);
+
     return new Intl.DateTimeFormat("it-IT", {year: "numeric", month: "numeric", day: "numeric", hour:"numeric", minute:"numeric"}).format(t);
 }
 
-function getTimeLeft(endDateSeconds, lastLoginSeconds){
-    let deltaSeconds = endDateSeconds - lastLoginSeconds;
+function getTimeLeft(endDate, lastLogin){
+    let deltaSeconds = (Date.parse(endDate) - Date.parse(lastLogin)) / 1000;
     let days = Math.floor(deltaSeconds / (60*60*24));
     deltaSeconds -= days * 60 * 60 * 24;
     let hours = Math.floor(deltaSeconds / (60*60));
