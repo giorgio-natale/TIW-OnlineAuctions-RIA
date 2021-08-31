@@ -9,13 +9,11 @@ import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.JsonSerializer;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 @WebServlet(name = "GetAuctionDetails", value = "/GetAuctionDetails")
 @MultipartConfig
@@ -90,7 +87,7 @@ public class GetAuctionDetails extends HttpServlet {
             return;
         }
 
-        CookieManager.addVisitedAuction(connection, request, response, auctionId);
+        CookieManager.addVisitedAuction(connection, request, response, auctionId, clientID);
 
         owner.setEmail(null);
         owner.setStreet(null);

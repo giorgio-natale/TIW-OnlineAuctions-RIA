@@ -285,9 +285,10 @@ public class AuctionDAO {
         }
 
         String query =
-                "SELECT auction_id " +
+                "SELECT DISTINCT auction_id " +
                 "FROM auction " +
-                "WHERE auction_id IN (" + str + ") AND closed = false AND (NOW() > end_date) = false;";
+                "WHERE auction_id IN (" + str + ") AND closed = false AND (NOW() > end_date) = false " +
+                "ORDER BY FIELD(auction_id," + str + ");";
 
         List<Integer> openAuctions = new ArrayList<>();
 
