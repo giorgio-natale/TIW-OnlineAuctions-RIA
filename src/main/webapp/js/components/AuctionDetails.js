@@ -68,6 +68,18 @@ export function AuctionDetails(_container, _orchestrator){
 
         self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
         self.endDate.textContent = secondsToDate(auctionDetails.end_date);
+
+        if(auctionDetails.closed === true)
+            self.timeLeft.textContent = "(CLOSED)";
+        else if(auctionDetails.expired === true)
+            self.timeLeft.textContent = "(EXPIRED)";
+        else
+            self.timeLeft.textContent = "(" + getTimeLeft(auctionDetails.end_date, localStorage.getItem("last_login")) + " left)";
+
+        if(auctionDetails.closed === true || auctionDetails.expired === true)
+            self.offersTitle.style.display = "none";
+        else
+            self.offersTitle.style.display = "";
     }
 
     this.reset = function() {
