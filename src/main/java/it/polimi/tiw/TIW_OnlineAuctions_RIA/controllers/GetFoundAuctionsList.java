@@ -50,7 +50,8 @@ public class GetFoundAuctionsList extends HttpServlet {
         try {
             auctions = auctionDAO.searchOpenAuctions(search);
         } catch (SQLException e) {
-            response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database fetch: failed to search through open auctions");
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.getWriter().println("Failure in database fetch: failed to search through open auctions");
             return;
         }
 

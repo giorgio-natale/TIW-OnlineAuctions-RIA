@@ -43,7 +43,8 @@ public class GetAuctionsFromHistory extends HttpServlet {
         try {
             auctions = auctionDAO.getAuctionDetails(idList);
         } catch (SQLException e) {
-            response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database fetch: failed to search through history auctions");
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.getWriter().println("Failure in database fetch: failed to search through history auctions");
             return;
         }
 
