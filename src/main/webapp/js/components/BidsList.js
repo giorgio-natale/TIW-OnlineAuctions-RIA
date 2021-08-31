@@ -6,6 +6,7 @@ export function BidsList(_container, _orchestrator){
     self.container = _container;
     self.orchestrator = _orchestrator;
 
+    self.bidsContainerDiv = document.getElementById("bids-shown");
     self.listContainer = document.getElementById("list-bids");
     self.emptyContainer = document.getElementById("bids-empty");
     self.bidCards = [];
@@ -30,10 +31,10 @@ export function BidsList(_container, _orchestrator){
 
         if(_bids.length > 0){
             self.emptyContainer.style.display = "none";
-            self.listContainer.style.display = "";
+            self.bidsContainerDiv.style.display = "";
         }else{
             self.emptyContainer.style.display = "";
-            self.listContainer.style.display = "none";
+            self.bidsContainerDiv.style.display = "none";
         }
 
         _bids.forEach((bid) => {
