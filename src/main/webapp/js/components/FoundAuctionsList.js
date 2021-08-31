@@ -6,7 +6,8 @@ export function FoundAuctionsList(_container, _orchestrator){
     self.container = _container;
     self.orchestrator = _orchestrator;
     self.listContainer = document.getElementById("list-found");
-    self.emptyMessageContainer = document.getElementById("found-noResults");
+    self.emptyMessage = document.getElementById("found-noResults");
+    self.recentMessage = document.getElementById("found-recent");
 
     self.cards = [];
 
@@ -14,7 +15,7 @@ export function FoundAuctionsList(_container, _orchestrator){
         makeCall("GET", "GetFoundAuctionsList?search=" + searchString, null,
             function (request) {
                 if (request.status === HttpResponseStatus.OK) {
-                    self.update(JSON.parse(request.responseText));
+                    self.update(JSON.parse(request.responseText), false);
                 }
                 else {
                     // TODO: error handling
@@ -24,19 +25,46 @@ export function FoundAuctionsList(_container, _orchestrator){
         );
     }
 
-    this.update = function(_auctionsToShow) {
+    this.showHistory = function() {
+        makeCall("GET", "GetAuctionsFromHistory", null,
+            function (request) {
+                if (request.status === HttpResponseStatus.OK) {
+                    self.update(JSON.parse(request.responseText), true);
+                }
+                else {
+                    // TODO: error handling
+                    alert("Error " + request.status + ": " + request.responseText);
+                }
+            }
+        );
+    }
+
+    this.update = function(_auctionsToShow, showHistory = true) {
         self.reset();
         self.container.style.display = "";
 
-        //if there is no auction found, a message is shown
-        if(_auctionsToShow.length > 0) {
-            self.emptyMessageContainer.style.display = "none";
-            self.listContainer.style.display = "";
-        }
-        else {
-            self.emptyMessageContainer.style.display = "";
-            self.listContainer.style.display = "none";
-        }
+        if (showHistory === true)
+            if(_auctionsToShow.length > 0) {
+                self.emptyMessage.style.display = "none";
+                self.recentMessage.style.display = "";
+                self.listContainer.style.display = "";
+            }
+            else {
+                self.emptyMessage.style.display = "none";
+                self.recentMessage.style.display = "none";
+                self.listContainer.style.display = "none";
+            }
+        else
+            if(_auctionsToShow.length > 0) {
+                self.emptyMessage.style.display = "none";
+                self.recentMessage.style.display = "none";
+                self.listContainer.style.display = "";
+            }
+            else {
+                self.emptyMessage.style.display = "";
+                self.recentMessage.style.display = "none";
+                self.listContainer.style.display = "none";
+            }
 
         //for each auction, a card is created. They are stored in a list so that on update it is possible to clean resources
         _auctionsToShow.forEach((auctionBean) => {

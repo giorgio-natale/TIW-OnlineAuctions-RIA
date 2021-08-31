@@ -32,9 +32,11 @@ export function Orchestrator() {
 
     this.init = function() {
         if(localStorage.getItem("new_user") === String(true))
-            self.showBuyPage();
-        else
+            self.showBuyPage(true);
+        else if(getCookie("lastAction." + localStorage.getItem("user_id")) === "create")
             self.showSellPage();
+        else
+            self.showBuyPage(true);
     }
 
     this.showSearchResults = function(searchString) {
@@ -53,11 +55,16 @@ export function Orchestrator() {
         self.navBar.activateBuy();
     }
 
-    this.showBuyPage = function() {
+    this.showBuyPage = function(showHistory = true) {
         self.navBar.show();
 
         self.searchBar.show();
-        self.foundAuctionsList.reset();
+
+        if(showHistory === true)
+            self.foundAuctionsList.showHistory();
+        else
+            self.foundAuctionsList.reset();
+
         self.wonAuctionsList.show();
 
         self.newAuctionForm.reset();
