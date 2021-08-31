@@ -17,7 +17,7 @@ public class CookieManager {
     public static final String LAST_ACTION_KEY_PREFIX = "lastAction.";
     public static final List<String> ACCEPTED_ACTIONS = Arrays.asList("search", "bid", "create", "close");
 
-    private static Cookie getCookie(HttpServletRequest request, String key, String defaultValue) {
+    public static Cookie getCookie(HttpServletRequest request, String key, String defaultValue) {
         return Arrays.stream(request.getCookies())
                 .filter(c -> key.equals(c.getName()))
                 .findAny()

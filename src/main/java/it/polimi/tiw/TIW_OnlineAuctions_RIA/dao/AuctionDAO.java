@@ -166,6 +166,53 @@ public class AuctionDAO {
         }
     }
 
+    public List<Auction> getAuctionDetails(List<Integer> auctionIDs) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+
+        String sep = "";
+        for(Integer id : auctionIDs){
+            sb.append(sep).append(id);
+            sep = ",";
+        }
+
+        String idListString = sb.toString();
+
+        String query =
+                "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
+                "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
+                "WHERE closed = FALSE AND (NOW() > auction.end_date) = FALSE AND auction.auction_id IN (" + idListString+ ") ORDER BY FIELD(auction.auction_id, "+ idListString + ");";
+
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            try (ResultSet result = preparedStatement.executeQuery()) {
+
+                if(!result.isBeforeFirst())
+                    return null;
+
+                List<Auction> auctions = new ArrayList<>();
+                while(result.next()) {
+                    Auction auction = new Auction();
+                    auction.setAuction_id(result.getInt("auction_id"));
+                    auction.setUser_id(result.getInt("user_id"));
+                    auction.setName(result.getString("name"));
+                    auction.setDescription(result.getString("description"));
+                    auction.setImage(result.getString("image"));
+                    auction.setStarting_price(result.getDouble("starting_price"));
+                    auction.setMin_price_gap(result.getDouble("min_price_gap"));
+                    auction.setEnd_date(result.getTimestamp("end_date").toInstant());
+                    auction.setClosed(result.getBoolean("closed"));
+                    auction.setExpired(result.getBoolean("expired"));
+                    auction.setWinning_price(result.getDouble("winning_price"));
+                    auction.setWinner_id(result.getInt("winner_id"));
+                    auctions.add(auction);
+                }
+                return auctions;
+            }
+        }
+
+    }
+
     public String getImageName(int auctionID) throws SQLException{
         String query =
                 "SELECT image " +
