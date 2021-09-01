@@ -26,9 +26,17 @@
 
     <filter-mapping>
         <filter-name>AlreadyLoggedIn</filter-name>
+        <url-pattern>/AddBid</url-pattern>
         <url-pattern>/CheckAlreadyLoggedIn</url-pattern>
+        <url-pattern>/CloseAuction</url-pattern>
+        <url-pattern>/GetAuctionDetails</url-pattern>
+        <url-pattern>/GetAuctionsFromHistory</url-pattern>
         <url-pattern>/GetAuctionsList</url-pattern>
+        <url-pattern>/GetAuctionWinner</url-pattern>
         <url-pattern>/GetBids</url-pattern>
+        <url-pattern>/GetFoundAuctionsList</url-pattern>
+        <url-pattern>/GetImage</url-pattern>
+        <url-pattern>/Logout</url-pattern>
     </filter-mapping>
 
     <welcome-file-list>
