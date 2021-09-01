@@ -75,7 +75,7 @@
             <!-- NEW AUCTION SECTION -->
             <section id="section-newAuction">
                 <div class="row py-4 px-5">
-                    <form class="pb-3 px-0" id="newAuction-form">
+                    <form class="pb-3 px-0 needs-validation" id="newAuction-form" novalidate>
                         <div class="row p-0">
                             <div class="col-12 pb-2">
                                 <h2>Create new Auction</h2>
@@ -84,6 +84,7 @@
                             <div class="col-6 py-2">
                                 <label for="newAuction-auctionName" class="form-label">Name:</label>
                                 <input type="text" class="form-control" id="newAuction-auctionName" name="newAuction-auctionName" required>
+                                <div class="invalid-feedback">Auction name is required</div>
                             </div>
 
                             <div class="col-6 py-2">
@@ -94,31 +95,37 @@
                             <div class="col-12 py-2">
                                 <label for="newAuction-auctionDescription" class="form-label">Description:</label>
                                 <textarea rows="3" class="form-control" id="newAuction-auctionDescription" name="newAuction-auctionDescription" required style="resize: none;"></textarea>
+                                <div class="invalid-feedback">Auction description is required</div>
                             </div>
 
                             <div class="col-3 py-2">
                                 <label for="newAuction-auctionStartingPrice" class="form-label">Starting price:</label>
-                                <input type="number" class="form-control" id="newAuction-auctionStartingPrice" name="newAuction-auctionStartingPrice" required step="0.5" min="0" max="999999.99" />
+                                <input type="number" class="form-control" id="newAuction-auctionStartingPrice" name="newAuction-auctionStartingPrice" required step="0.5" min="1" max="999999.99" />
+                                <div class="invalid-feedback">Valid starting price is required</div>
                             </div>
 
                             <div class="col-3 py-2">
                                 <label for="newAuction-auctionPriceGap" class="form-label">Minimum price gap:</label>
-                                <input type="number" class="form-control" id="newAuction-auctionPriceGap" name="newAuction-auctionPriceGap" required step="0.5" min="0" max="999999.99" />
+                                <input type="number" class="form-control" id="newAuction-auctionPriceGap" name="newAuction-auctionPriceGap" required step="0.5" min="1" max="999999.99" />
+                                <div class="invalid-feedback">Valid minimum price gap is required</div>
                             </div>
 
                             <div class="col-4 py-2">
                                 <label for="newAuction-auctionEndDate" class="form-label">End date:</label>
                                 <input type="date" class="form-control" id="newAuction-auctionEndDate" name="newAuction-auctionEndDate" required />
+                                <div class="invalid-feedback">End date must be between tomorrow and a year in the future</div>
                             </div>
 
                             <div class="col-1 py-2">
                                 <label for="newAuction-auctionEndHour" class="form-label">Hour:</label>
                                 <input type="number" class="form-control" id="newAuction-auctionEndHour" name="newAuction-auctionEndHour" required min="0" max="23" step="1" />
+                                <div class="invalid-feedback">Valid time is required</div>
                             </div>
 
                             <div class="col-1 py-2">
                                 <label for="newAuction-auctionEndMinute" class="form-label">Min:</label>
                                 <input type="number" class="form-control" id="newAuction-auctionEndMinute" name="newAuction-auctionEndMinute" required min="0" max="59" step="1" />
+                                <div class="invalid-feedback">Valid time is required</div>
                             </div>
 
                             <div class="col-2 py-2">
