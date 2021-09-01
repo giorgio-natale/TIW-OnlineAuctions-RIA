@@ -18,8 +18,7 @@ export function FoundAuctionsList(_container, _orchestrator){
                     self.update(JSON.parse(request.responseText), false);
                 }
                 else {
-                    // TODO: error handling
-                    alert("Error " + request.status + ": " + request.responseText);
+                    self.orchestrator.showAlertMessage(request.responseText);
                 }
             }
         );
@@ -32,8 +31,7 @@ export function FoundAuctionsList(_container, _orchestrator){
                     self.update(JSON.parse(request.responseText), true);
                 }
                 else {
-                    // TODO: error handling
-                    alert("Error " + request.status + ": " + request.responseText);
+                    self.orchestrator.showAlertMessage(request.responseText);
                 }
             }
         );

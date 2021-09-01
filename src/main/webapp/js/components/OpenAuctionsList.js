@@ -30,8 +30,7 @@ export function OpenAuctionsList(_container, _orchestrator) {
                     self.update(JSON.parse(request.responseText));
                 }
                 else {
-                    // TODO: error handling
-                    alert("Error " + request.status + ": " + request.responseText);
+                    self.orchestrator.showAlertMessage(request.responseText);
                 }
             }
         );

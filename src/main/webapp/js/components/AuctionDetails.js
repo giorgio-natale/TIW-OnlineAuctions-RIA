@@ -102,8 +102,7 @@ export function AuctionDetails(_container, _orchestrator) {
                         self.closeForm.reset();
                     }
                     else {
-                        // TODO: error handling
-                        alert("Error " + request.status + ": " + request.responseText);
+                        self.orchestrator.showAlertMessage(request.responseText);
                     }
                 },
                 true

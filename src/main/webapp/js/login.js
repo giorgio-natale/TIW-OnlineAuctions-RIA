@@ -1,6 +1,7 @@
 (function () {
 
-    let form;
+    let form = document.getElementById("form");
+
     window.addEventListener("load", () => {
             makeCall("GET", "CheckAlreadyLoggedIn", null,
                 function (request) {
@@ -8,17 +9,26 @@
                         window.location.href = "home.html";
                 },
                 false
-            )
-            form = document.getElementById("form");
-            document.getElementById("form").addEventListener("submit", (e) =>{
+            );
+
+            form.addEventListener("submit", (e) => {
                 e.preventDefault();
-                checkLogin();
-            });
+                form.classList.add("was-validated");
+
+                if (!self.form.checkValidity()) {
+                    e.stopPropagation();
+                }
+                else {
+                    checkLogin();
+                    form.classList.remove("was-validated");
+                }
+            },
+                false
+            );
         }
     );
 
     function checkLogin() {
-        const form = document.getElementById("form");
 
         if (form.checkValidity()) {
             makeCall("POST", 'CheckLogin', new FormData(form),
@@ -51,14 +61,13 @@
                                 document.getElementById("errorMsg").style.visibility = "visible";
                                 break;
                     }
-                }
+                },
+                false
             );
         }
         else {
             form.reportValidity();
         }
     }
-
-
 
 })();

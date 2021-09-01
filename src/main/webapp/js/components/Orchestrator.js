@@ -1,4 +1,5 @@
 import {NavBar} from "./NavBar.js";
+import {AlertMessage} from "./AlertMessage.js";
 
 import {SearchBar} from "./SearchBar.js";
 import {FoundAuctionsList} from "./FoundAuctionsList.js";
@@ -17,6 +18,7 @@ import {AuctionPage} from "./AuctionPage.js";
 //This component is passed to all other subcomponents so that they can invoke the correct interaction function when needed
 export function Orchestrator() {
     this.navBar = new NavBar(document.getElementById("section-navbar"), this);
+    this.alertMessage = new AlertMessage(document.getElementById('section-alert'), this);
 
     this.searchBar = new SearchBar(document.getElementById("section-search"), this);
     this.foundAuctionsList = new FoundAuctionsList(document.getElementById("section-found"), this);
@@ -106,5 +108,9 @@ export function Orchestrator() {
         self.auctionPage.show(auctionID);
 
         self.navBar.deactivateAll();
+    }
+
+    this.showAlertMessage = function (message) {
+        self.alertMessage.show(message);
     }
 }

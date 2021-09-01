@@ -21,8 +21,7 @@ export function AuctionPage(_orchestrator) {
                     self.update(pair.auction, pair.owner);
                 }
                 else {
-                    // TODO: error handling
-                    alert("Error " + request.status + ": " + request.responseText);
+                    self.orchestrator.showAlertMessage(request.responseText);
                 }
             }
         );
