@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "GetFoundAuctionsList", value = "/GetFoundAuctionsList")
@@ -34,20 +35,24 @@ public class GetFoundAuctionsList extends HttpServlet {
 
         String search = request.getParameter("search");
 
-        if(search == null || search.isEmpty()) {
+        if(search == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("Invalid request");
+            response.getWriter().println("Missing search parameter");
             return;
         }
 
-        List<Auction> auctions;
+        search = search.trim();
 
-        try {
-            auctions = auctionDAO.searchOpenAuctions(search);
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
-            response.getWriter().println("Failure in database fetch: failed to search through open auctions");
-            return;
+        List<Auction> auctions = new ArrayList<>();
+
+        if(!search.isEmpty()) {
+            try {
+                auctions = auctionDAO.searchOpenAuctions(search);
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+                response.getWriter().println("Failure in database fetch: failed to search through open auctions");
+                return;
+            }
         }
 
         CookieManager.setLastAction(request, response, "search", ((User) request.getSession().getAttribute("user")).getUser_id());
