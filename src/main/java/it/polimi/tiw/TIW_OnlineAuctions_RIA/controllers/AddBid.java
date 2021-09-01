@@ -29,8 +29,7 @@ public class AddBid extends HttpServlet {
     private Connection connection;
 
     public void init() throws UnavailableException {
-        Pair<TemplateEngine, Connection> setupResult = ServletUtils.setupServlet(getServletContext());
-        this.connection = setupResult.getSecond();
+        this.connection = ServletUtils.getConnection(getServletContext());
     }
 
     @Override
@@ -130,5 +129,13 @@ public class AddBid extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().println("New bid added");
+    }
+
+    public void destroy() {
+        try {
+            ServletUtils.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,13 +1,14 @@
 package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
-import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
-import org.thymeleaf.TemplateEngine;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.UnavailableException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,14 +18,10 @@ import java.sql.SQLException;
 @WebServlet(name = "GetImage", value = "/GetImage")
 @MultipartConfig
 public class GetImage extends HttpServlet {
-    private TemplateEngine templateEngine;
     private Connection connection;
 
-
     public void init() throws UnavailableException {
-        Pair<TemplateEngine, Connection> setupResult = ServletUtils.setupServlet(getServletContext());
-        this.templateEngine = setupResult.getFirst();
-        this.connection = setupResult.getSecond();
+        this.connection = ServletUtils.getConnection(getServletContext());
     }
 
 
@@ -77,5 +74,13 @@ public class GetImage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doGet(request, response);
+    }
+
+    public void destroy() {
+        try {
+            ServletUtils.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
