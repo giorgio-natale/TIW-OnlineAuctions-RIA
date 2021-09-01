@@ -27,15 +27,14 @@ export function WinnerDetails(_container, _orchestrator) {
     }
 
     this.update = function(userBean) {
-        if(userBean == null) {
+        if(Object.keys(userBean).length === 0) {
             self.regularInfosShown.style.display = "none";
             self.noWinnerShown.style.display = "";
-        }
-        else {
+        } else {
             self.regularInfosShown.style.display = "";
             self.noWinnerShown.style.display = "none";
 
-            if(userBean.other_address_infos == null)
+            if(userBean.other_address_infos === undefined)
                 self.otherInfosShown.style.display = "none";
             else {
                 self.otherInfosShown.style.display = "";

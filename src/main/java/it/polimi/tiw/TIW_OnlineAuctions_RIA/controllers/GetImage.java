@@ -31,7 +31,8 @@ public class GetImage extends HttpServlet {
         try {
             auctionId = Integer.parseInt(request.getParameter("auctionId"));
         } catch (NumberFormatException | NullPointerException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Auction id not specified");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Auction id not specified");
             return;
         }
 
