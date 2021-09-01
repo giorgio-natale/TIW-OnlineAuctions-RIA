@@ -46,7 +46,7 @@ export function AuctionDetails(_container, _orchestrator) {
         self.startingPrice.innerHTML = getPriceFormat(auctionDetails.starting_price);
         self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
 
-        if (auctionDetails.expired === true || auctionDetails.closed === true || auctionDetails.end_date < localStorage.getItem("last_login")) {
+        if (auctionDetails.expired === true || auctionDetails.closed === true || Date.parse(auctionDetails.end_date) < Date.parse(localStorage.getItem("last_login"))) {
             self.priceLabel.textContent = "Final price:";
         } else if (auctionDetails.winning_price !== 0) {
             self.priceLabel.textContent = "Current price:";
