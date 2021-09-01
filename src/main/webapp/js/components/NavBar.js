@@ -11,12 +11,12 @@ export function NavBar(_container, _orchestrator) {
     this.registerEvents = function() {
         self.buyButton.addEventListener("click", (event) => {
             event.preventDefault();
-            makeCall("GET", "CheckAlreadyLoggedIn", null, () => self.orchestrator.showBuyPage());
+            self.orchestrator.showBuyPage();
         });
 
         self.sellButton.addEventListener("click", (event) => {
             event.preventDefault();
-            makeCall("GET", "CheckAlreadyLoggedIn", null, () => self.orchestrator.showSellPage());
+            self.orchestrator.showSellPage();
         });
 
         self.logoutButton.addEventListener("click", (event) => {
