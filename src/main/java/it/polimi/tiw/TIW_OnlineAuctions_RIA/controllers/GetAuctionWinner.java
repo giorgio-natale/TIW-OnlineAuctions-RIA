@@ -62,18 +62,18 @@ public class GetAuctionWinner extends HttpServlet {
             return;
         }
 
-        // check if auction exists and is open
+        // check if auction exists and is closed/expired
         if(auction == null || (!auction.isClosed() && !auction.isExpired())) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("Auction not found");
             return;
         }
 
-        // check if the request is from the auction's owner or the winner
+        // check if the request is from the auction's owner or the user
         int clientID = ((User) request.getSession().getAttribute("user")).getUser_id();
         if(auction.getUser_id() != clientID && auction.getWinner_id() != clientID) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("Invalid request: only the owner or the winner of the auction can gather the winner");
+            response.getWriter().println("Invalid request: only the owner or the user of the auction can gather the winner");
             return;
         }
 
@@ -87,14 +87,13 @@ public class GetAuctionWinner extends HttpServlet {
             return;
         }
 
-        // check if user exists
-        if(user == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("User not found");
-            return;
-        }
+        String serializedAuctions;
 
-        String serializedAuctions = JsonSerializer.getInstance().toJson(user);
+        // serializes winner if exists, otherwise sends empty object
+        if(user == null)
+            serializedAuctions = "{}";
+        else
+            serializedAuctions = JsonSerializer.getInstance().toJson(user);
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println(serializedAuctions);
