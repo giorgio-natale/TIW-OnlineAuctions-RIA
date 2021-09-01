@@ -16,8 +16,7 @@ export function SearchBar(_container, _orchestrator){
             }
 
             if(!self.searchTag.value.match(/^[a-z0-9 ]+$/i)) {
-                // TODO: display error
-                alert("Invalid character in search!")
+                self.orchestrator.showAlertMessage("Invalid character in search!");
                 return;
             }
 
