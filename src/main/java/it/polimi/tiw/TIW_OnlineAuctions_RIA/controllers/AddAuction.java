@@ -71,10 +71,10 @@ public class AddAuction extends HttpServlet {
             auctionStartingPrice = Double.parseDouble(request.getParameter("newAuction-auctionStartingPrice"));
             auctionPriceGap = Double.parseDouble(request.getParameter("newAuction-auctionPriceGap"));
 
-            if(auctionStartingPrice <= 0.0 || auctionStartingPrice >= 999_999.99)
+            if(auctionStartingPrice < 1.0 || auctionStartingPrice > 999_999.99)
                 throw new IllegalArgumentException("Invalid starting price");
 
-            if(auctionPriceGap <= 0.0 || auctionPriceGap >= 999_999.99)
+            if(auctionPriceGap < 1.0 || auctionPriceGap > 999_999.99)
                 throw new IllegalArgumentException("Invalid price gap");
 
         } catch (NullPointerException | IllegalArgumentException e) {
@@ -127,9 +127,9 @@ public class AddAuction extends HttpServlet {
             return;
         }
 
-        if(endDate.isBefore(Instant.now()) || endDate.isAfter(Instant.now().plusSeconds(365*24*60*60))){
+        if(endDate.isBefore(Instant.now().plusSeconds(24 * 60 * 60)) || endDate.isAfter(Instant.now().plusSeconds(366 * 24 * 60 * 60))){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("End date must be between the current time and one year in the future");
+            response.getWriter().println("End date must be between tomorrow and one year in the future");
             return;
         }
 
