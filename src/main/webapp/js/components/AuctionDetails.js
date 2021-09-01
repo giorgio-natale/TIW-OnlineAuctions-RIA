@@ -50,6 +50,8 @@ export function AuctionDetails(_container, _orchestrator) {
             self.priceLabel.textContent = "Final price:";
         } else if (auctionDetails.winning_price !== 0) {
             self.priceLabel.textContent = "Current price:";
+            self.priceLabel.style.display = "";
+            self.price.style.display = "";
         } else {
             self.priceLabel.style.display = "none";
             self.price.style.display = "none";
