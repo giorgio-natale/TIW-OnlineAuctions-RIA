@@ -138,7 +138,7 @@ export function AuctionCard(_orchestrator) {
 
             self.statusSpan.style.display = "none";
 
-            if(localStorage.getItem("user_id") === auction.user_id)
+            if(localStorage.getItem("user_id") === String(auction.user_id))
                 self.buttonA.textContent = "Show Offers";
             else
                 self.buttonA.textContent = "Make an offer";
