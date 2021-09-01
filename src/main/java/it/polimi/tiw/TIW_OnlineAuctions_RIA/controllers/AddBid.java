@@ -98,6 +98,7 @@ public class AddBid extends HttpServlet {
         if(newBid < 1.00 || newBid > 9_999_999.99) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println("Bid must be within limits");
+            return;
         }
 
         // check if bids are valid
