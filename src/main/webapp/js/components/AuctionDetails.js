@@ -8,7 +8,8 @@ export function AuctionDetails(_container, _orchestrator) {
     self.image = document.getElementById("auctionDetails-image");
     self.name = document.getElementById("auctionDetails-name");
     self.ownerName = document.getElementById("auctionDetails-ownerName");
-    self.descrption = document.getElementById("auctionDetails-description");
+    self.description = document.getElementById("auctionDetails-description");
+    self.startingPrice = document.getElementById("auctionDetails-startingPrice");
     self.priceLabel = document.getElementById("auctionDetails-priceLabel");
     self.price = document.getElementById("auctionDetails-price");
     self.minimumRebid = document.getElementById("auctionDetails-minimumRebid");
@@ -28,7 +29,7 @@ export function AuctionDetails(_container, _orchestrator) {
         self.image.src = "GetImage?auctionId=" + auctionDetails.auction_id;
 
         self.name.textContent = auctionDetails.name;
-        self.descrption.textContent = auctionDetails.description;
+        self.description.textContent = auctionDetails.description;
 
         self.ownerName.textContent = lightOwnerDetails.first_name + " " + lightOwnerDetails.last_name;
 
@@ -42,23 +43,26 @@ export function AuctionDetails(_container, _orchestrator) {
             self.ownerName.classList.add("bg-primary");
         }
 
-        if(auctionDetails.expired === true || auctionDetails.closed === true || auctionDetails.end_date < localStorage.getItem("last_login"))
+        self.startingPrice.innerHTML = getPriceFormat(auctionDetails.starting_price);
+        self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
+
+        if (auctionDetails.expired === true || auctionDetails.closed === true || auctionDetails.end_date < localStorage.getItem("last_login")) {
             self.priceLabel.textContent = "Final price:";
-        else
-            if(auctionDetails.winning_price === 0)
-                self.priceLabel.textContent = "Starting price:";
-            else
-                self.priceLabel.textContent = "Current price:";
+        } else if (auctionDetails.winning_price !== 0) {
+            self.priceLabel.textContent = "Current price:";
+        } else {
+            self.priceLabel.style.display = "none";
+            self.price.style.display = "none";
+        }
 
         if(auctionDetails.winning_price === 0)
             if(auctionDetails.expired === true || auctionDetails.closed === true)
-                self.price.innerHTML = getPriceFormat(auctionDetails.starting_price) + " &euro; <span class='fw-bold'>(No bids were placed)</span>";
+                self.price.innerHTML = "<span>No bids were placed</span>";
             else
                 self.price.innerHTML = getPriceFormat(auctionDetails.starting_price) + " &euro;";
         else
             self.price.innerHTML = getPriceFormat(auctionDetails.winning_price) + " &euro;";
 
-        self.minimumRebid.textContent = getPriceFormat(auctionDetails.min_price_gap);
         self.endDate.textContent = parseDate(auctionDetails.end_date);
 
         if(auctionDetails.closed === true)
