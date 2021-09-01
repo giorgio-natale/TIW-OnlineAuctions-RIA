@@ -6,9 +6,7 @@ import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.UserDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.JsonSerializer;
-import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
-import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -25,14 +23,10 @@ import java.util.HashMap;
 @WebServlet(name = "GetAuctionDetails", value = "/GetAuctionDetails")
 @MultipartConfig
 public class GetAuctionDetails extends HttpServlet {
-    private TemplateEngine templateEngine;
     private Connection connection;
 
-
     public void init() throws UnavailableException {
-        Pair<TemplateEngine, Connection> setupResult = ServletUtils.setupServlet(getServletContext());
-        this.templateEngine = setupResult.getFirst();
-        this.connection = setupResult.getSecond();
+        this.connection = ServletUtils.getConnection(getServletContext());
     }
 
     @Override
@@ -112,5 +106,13 @@ public class GetAuctionDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    public void destroy() {
+        try {
+            ServletUtils.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

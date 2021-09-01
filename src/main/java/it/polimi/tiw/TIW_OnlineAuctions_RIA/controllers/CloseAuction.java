@@ -4,9 +4,7 @@ import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.Auction;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
-import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
-import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -23,14 +21,10 @@ import java.sql.SQLException;
 @MultipartConfig
 public class CloseAuction extends HttpServlet {
 
-    private TemplateEngine templateEngine;
     private Connection connection;
 
-
     public void init() throws UnavailableException {
-        Pair<TemplateEngine, Connection> setupResult = ServletUtils.setupServlet(getServletContext());
-        this.templateEngine = setupResult.getFirst();
-        this.connection = setupResult.getSecond();
+        this.connection = ServletUtils.getConnection(getServletContext());
     }
 
     @Override
@@ -97,5 +91,13 @@ public class CloseAuction extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println("Auction closed successfully");
+    }
+
+    public void destroy() {
+        try {
+            ServletUtils.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
