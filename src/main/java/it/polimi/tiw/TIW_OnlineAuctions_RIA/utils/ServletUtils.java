@@ -1,9 +1,6 @@
 package it.polimi.tiw.TIW_OnlineAuctions_RIA.utils;
 
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.exceptions.UnsupportedExtensionException;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import javax.servlet.ServletContext;
 import javax.servlet.UnavailableException;
@@ -41,20 +38,6 @@ public final class ServletUtils {
     public static void closeConnection(Connection connection) throws SQLException {
         if (connection != null)
             connection.close();
-    }
-
-    public static Pair<TemplateEngine, Connection> setupServlet(ServletContext servletContext) throws UnavailableException {
-
-        TemplateEngine templateEngine = new TemplateEngine();
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-
-        templateEngine.setTemplateResolver(templateResolver);
-        templateResolver.setSuffix(".html");
-
-        Connection connection = ServletUtils.getConnection(servletContext);
-
-        return new Pair<>(templateEngine, connection);
     }
 
     public static String appendParameter(String baseUrl, String key, Object value){

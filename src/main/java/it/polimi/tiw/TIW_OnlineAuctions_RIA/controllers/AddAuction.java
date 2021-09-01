@@ -3,10 +3,8 @@ package it.polimi.tiw.TIW_OnlineAuctions_RIA.controllers;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
-import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -18,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -30,8 +29,7 @@ public class AddAuction extends HttpServlet {
     private Connection connection;
 
     public void init() throws UnavailableException {
-        Pair<TemplateEngine, Connection> setupResult = ServletUtils.setupServlet(getServletContext());
-        this.connection = setupResult.getSecond();
+        this.connection = ServletUtils.getConnection(getServletContext());
     }
 
     @Override
@@ -176,5 +174,13 @@ public class AddAuction extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().println("Auction created");
+    }
+
+    public void destroy() {
+        try {
+            ServletUtils.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
