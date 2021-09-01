@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public UserDAO(Connection connection) {
         this.connection = connection;
@@ -69,48 +69,54 @@ public class UserDAO {
                     "SELECT last_login " +
                     "FROM user " +
                     "WHERE user_id = ?;";
+            try {
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query1)) {
-                preparedStatement.setInt(1, user.getUser_id());
+                try (PreparedStatement preparedStatement = connection.prepareStatement(query1)) {
+                    preparedStatement.setInt(1, user.getUser_id());
 
-                try (ResultSet result = preparedStatement.executeQuery()) {
-                    if (!result.isBeforeFirst()) {
-                        connection.setAutoCommit(true);
-                        return null;
-                    }
-                    else {
-                        result.next();
-                        user.setNew_user(result.getBoolean("new_user"));
+                    try (ResultSet result = preparedStatement.executeQuery()) {
+
+                        if (!result.isBeforeFirst()) {
+                            connection.setAutoCommit(true);
+                            return null;
+                        } else {
+                            result.next();
+                            user.setNew_user(result.getBoolean("new_user"));
+                        }
+
                     }
                 }
-            }
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
-                preparedStatement.setInt(1, user.getUser_id());
+                try (PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
+                    preparedStatement.setInt(1, user.getUser_id());
 
-                if(preparedStatement.executeUpdate() != 1) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return null;
-                }
-            }
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query3)) {
-                preparedStatement.setInt(1, user.getUser_id());
-
-                try (ResultSet result = preparedStatement.executeQuery()) {
-                    if (!result.isBeforeFirst()) {
+                    if (preparedStatement.executeUpdate() != 1) {
                         connection.rollback();
                         connection.setAutoCommit(true);
                         return null;
                     }
-                    else {
-                        result.next();
-                        user.setLast_login(result.getTimestamp("last_login").toInstant());
+                }
 
-                        connection.commit();
+                try (PreparedStatement preparedStatement = connection.prepareStatement(query3)) {
+                    preparedStatement.setInt(1, user.getUser_id());
+
+                    try (ResultSet result = preparedStatement.executeQuery()) {
+                        if (!result.isBeforeFirst()) {
+                            connection.rollback();
+                            connection.setAutoCommit(true);
+                            return null;
+                        } else {
+                            result.next();
+                            user.setLast_login(result.getTimestamp("last_login").toInstant());
+
+                            connection.commit();
+                        }
                     }
                 }
+            }catch(SQLException e){
+                connection.rollback();
+                connection.setAutoCommit(true);
+                throw e;
             }
         }
 
