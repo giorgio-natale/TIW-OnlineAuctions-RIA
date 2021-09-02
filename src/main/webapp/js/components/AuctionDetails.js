@@ -48,6 +48,8 @@ export function AuctionDetails(_container, _orchestrator) {
 
         if (auctionDetails.expired === true || auctionDetails.closed === true || Date.parse(auctionDetails.end_date) < Date.parse(localStorage.getItem("last_login"))) {
             self.priceLabel.textContent = "Final price:";
+            self.priceLabel.style.display = "";
+            self.price.style.display = "";
         } else if (auctionDetails.winning_price !== 0) {
             self.priceLabel.textContent = "Current price:";
             self.priceLabel.style.display = "";
