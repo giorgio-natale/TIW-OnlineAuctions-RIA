@@ -25,7 +25,25 @@
     </context-param>
 
     <filter-mapping>
+        <filter-name>SetCharset</filter-name>
+        <url-pattern>/AddAuction</url-pattern>
+        <url-pattern>/AddBid</url-pattern>
+        <url-pattern>/CheckAlreadyLoggedIn</url-pattern>
+        <url-pattern>/CheckLogin</url-pattern>
+        <url-pattern>/CloseAuction</url-pattern>
+        <url-pattern>/GetAuctionDetails</url-pattern>
+        <url-pattern>/GetAuctionsFromHistory</url-pattern>
+        <url-pattern>/GetAuctionsList</url-pattern>
+        <url-pattern>/GetAuctionWinner</url-pattern>
+        <url-pattern>/GetBids</url-pattern>
+        <url-pattern>/GetFoundAuctionsList</url-pattern>
+        <url-pattern>/GetImage</url-pattern>
+        <url-pattern>/Logout</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
         <filter-name>AlreadyLoggedIn</filter-name>
+        <url-pattern>/AddAuction</url-pattern>
         <url-pattern>/AddBid</url-pattern>
         <url-pattern>/CheckAlreadyLoggedIn</url-pattern>
         <url-pattern>/CloseAuction</url-pattern>

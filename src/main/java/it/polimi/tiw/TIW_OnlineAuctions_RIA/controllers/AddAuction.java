@@ -45,8 +45,8 @@ public class AddAuction extends HttpServlet {
         String auctionDescription;
 
         try {
-            auctionName = StringEscapeUtils.escapeJava(request.getParameter("newAuction-auctionName"));
-            auctionDescription = StringEscapeUtils.escapeJava(request.getParameter("newAuction-auctionDescription"));
+            auctionName = request.getParameter("newAuction-auctionName");
+            auctionDescription = request.getParameter("newAuction-auctionDescription");
 
             if(auctionName == null || auctionName.isEmpty())
                 throw new IllegalArgumentException("Missing name");
