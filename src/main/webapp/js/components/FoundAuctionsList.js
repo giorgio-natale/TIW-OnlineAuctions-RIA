@@ -12,7 +12,7 @@ export function FoundAuctionsList(_container, _orchestrator){
     self.cards = [];
 
     this.show = function(searchString) {
-        makeCall("GET", "GetFoundAuctionsList?search=" + searchString, null,
+        makeCall("GET", "GetFoundAuctionsList?search=" + encodeURIComponent(searchString), null,
             function (request) {
                 if (request.status === HttpResponseStatus.OK) {
                     self.update(JSON.parse(request.responseText), false);

@@ -15,15 +15,7 @@ export function SearchBar(_container, _orchestrator){
                 return;
             }
 
-            /*
-            if(!self.searchTag.value.match(/^[a-z0-9 ]+$/i)) {
-                self.orchestrator.showAlertMessage("Invalid character in search!");
-                return;
-            }
-            */
-
-            let encodedValue = escape(self.searchTag.value);
-            self.orchestrator.showSearchResults(encodedValue);
+            self.orchestrator.showSearchResults(self.searchTag.value);
         });
     }
 
