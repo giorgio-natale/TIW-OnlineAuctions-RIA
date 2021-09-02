@@ -191,7 +191,7 @@ public class AuctionDAO {
             try (ResultSet result = preparedStatement.executeQuery()) {
 
                 if(!result.isBeforeFirst())
-                    return null;
+                    return new ArrayList<>();
 
                 List<Auction> auctions = new ArrayList<>();
                 while(result.next()) {
