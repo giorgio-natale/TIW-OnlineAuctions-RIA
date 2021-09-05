@@ -54,7 +54,6 @@ public final class ServletUtils {
     public static String getRecognizedExtension(String s) throws UnsupportedExtensionException{
         int lastFullStopIndex = s.lastIndexOf(".");
 
-        //TODO: add all supported extensions
         Set<String> supportedExtensions = new HashSet<>(){{
             add(".jpg");
             add(".jpeg");

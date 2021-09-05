@@ -6,9 +6,7 @@ import it.polimi.tiw.TIW_OnlineAuctions_RIA.beans.User;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.AuctionDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.dao.BidDAO;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.CookieManager;
-import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.Pair;
 import it.polimi.tiw.TIW_OnlineAuctions_RIA.utils.ServletUtils;
-import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;

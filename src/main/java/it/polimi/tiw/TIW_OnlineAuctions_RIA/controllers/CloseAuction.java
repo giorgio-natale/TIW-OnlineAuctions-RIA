@@ -49,8 +49,6 @@ public class CloseAuction extends HttpServlet {
             return;
         }
 
-        //TODO: close the auction in the database
-
         // check if auction exists
         if(auction == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

@@ -27,7 +27,7 @@ public class AuctionDAO {
                 "SELECT auction.auction_id, auction.user_id, name, description, image, starting_price, min_price_gap, end_date, closed, (NOW() > end_date) AS expired, winning_price, auction_winner.user_id as winner_id " +
                 "FROM auction_winner RIGHT JOIN auction ON auction_winner.auction_id = auction.auction_id " +
                 "WHERE closed = false AND NOW() < end_date AND (name LIKE CONCAT('%', ?, '%') OR description LIKE CONCAT('%', ?, '%')) " +
-                "ORDER BY end_date ASC;";   // TODO: change to DESC just in case
+                "ORDER BY end_date ASC;";
 
         List<Auction> auctions = new ArrayList<>();
 
